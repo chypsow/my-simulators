@@ -17,6 +17,7 @@
     body{ background:transparent; color:#000; }
     .wrapper{ width:100%; margin:0; padding:0; }
     table{ table-layout:auto !important; width:100% !important; }
+    .table-header th{ font-size:0.7rem !important; color:#000 !important; border-color:#000 !important;}
     header, footer{ display:none; }
     .afdrukken{ display:none !important; }
 }

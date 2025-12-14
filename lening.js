@@ -4,7 +4,6 @@ const fmtCurrency = new Intl.NumberFormat("nl-BE", { style: "currency", currency
 const fmtNumber = (n, digits = 2) => Number.isFinite(n) ? n.toFixed(digits) : "0.00";
 
 // UI Elements
-//const DOM.app01 = {};
 export function renderApp02() {
     const root = DOM.app02;
     root.style.display = "block";
@@ -15,7 +14,7 @@ export function renderApp02() {
 
     root.classList.add("wrapper");
     root.append(createHeader('CALCULATOR 1'));
-    // Placeholder for future calculator implementation
+    // Placeholder for future calculator 1 implementation
 }
 export function renderApp03() {
     const root = DOM.app03;
@@ -27,7 +26,7 @@ export function renderApp03() {
 
     root.classList.add("wrapper");
     root.append(createHeader('CALCULATOR 2'));
-    // Placeholder for future voorbeeld 1 implementation
+    // Placeholder for future calculator 2 implementation
 }
 export function renderApp04() {
     const root = DOM.app04;
@@ -39,7 +38,7 @@ export function renderApp04() {
 
     root.classList.add("wrapper");
     root.append(createHeader('CALCULATOR 3'));
-    // Placeholder for future voorbeeld 2 implementation
+    // Placeholder for future calculator 3 implementation
 }
 
 const assignElts = () => {
