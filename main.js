@@ -1,5 +1,5 @@
 
-import { renderApp01, renderApp02, renderApp03, renderApp04 } from './lening.js';
+import { renderApp } from './lening.js';
 
 export let activePage = localStorage.getItem('activePage') ? parseInt(localStorage.getItem('activePage')) : 0;
 export const $ = selector => document.querySelector(selector);
@@ -12,13 +12,6 @@ export const DOM = {
     app04 : $('#app04'),
     sidebar : $('#sidebar'),
     menuBtn : $('#menuBtn'),
-};
-
-export const renderApp = {
-    0: () => renderApp01(),
-    1: () => renderApp02(),
-    2: () => renderApp03(),
-    3: () => renderApp04()
 };
 
 function makeSideBar() {

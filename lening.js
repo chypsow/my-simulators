@@ -1,8 +1,14 @@
 import { DOM, $, $all, el } from './main.js';
 
 const fmtCurrency = new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR", maximumFractionDigits: 2 });
-const fmtNumber = (n, digits = 2) => Number.isFinite(n) ? n.toFixed(digits) : "0.00";
+//const fmtNumber = (n, digits = 2) => Number.isFinite(n) ? n.toFixed(digits) : "0.00";
 
+export const renderApp = {
+    0: () => renderApp01(),
+    1: () => renderApp02(),
+    2: () => renderApp03(),
+    3: () => renderApp04()
+};
 // UI Elements
 export function renderApp02() {
     const root = DOM.app02;
@@ -70,7 +76,7 @@ export function renderApp01() {
     root.classList.add("wrapper");
     root.append(
         createHeader(),
-        createImportExportButtons(),
+        createHeading(),
         createMainSection(),
         createButtons(),
         createTable()
@@ -103,6 +109,8 @@ export function renderApp01() {
         }
     });
     DOM.app01.afdrukkenBtn.addEventListener("click", printData);
+    $("#importBtn").addEventListener("click", importData);
+    $("#exportBtn").addEventListener("click", exportData);
 }
 
 
@@ -111,6 +119,18 @@ export function renderApp01() {
 function createHeader(tekst = "LENING AFLOSSINGSSCHEMA") {
     return el("header", { class: "no-print" }, [
         el("h1", { text: tekst })
+    ]);
+}
+function createHeading() {
+    return el("div", { class: "heading" }, [
+        createBankName(),
+        createImportExportButtons()
+    ]);
+}
+function createBankName() {
+    return el("label", { class: "bank-name" }, [
+        el("span", { text: "Naam bank: " }),
+        el("input", { type: "text", id: "bankName", placeholder: "Naam bank..." })
     ]);
 }
 function createImportExportButtons() {
@@ -225,6 +245,22 @@ function createTable() {
 }
 
 // Lening calculator logic
+function updateSummary() {
+    const inputs = parseInputs();
+    if (!inputs) {
+        resetOutputs();
+        return;
+    }
+    const { bedrag, jkp, periode, renteType: type } = inputs;
+    const i = monthlyRate(jkp, type);
+    const betaling = computePayment(bedrag, i, periode);
+    DOM.app01.pmtEl.value = fmtCurrency.format(+betaling.toFixed(2));
+    DOM.app01.renteEl.value = (i * 100).toFixed(4) + " %";
+    DOM.app01.periodeJaarEl.value = (periode / 12).toFixed(2) + " jaar";
+    DOM.app01.interestenEl.value = fmtCurrency.format((betaling * periode - bedrag));
+    DOM.app01.aflossingBtn.disabled = false;
+}
+
 function parseInputs() {
     const bedrag = parseFloat($("#teLenenBedrag").value);
     const jkp = parseFloat($("#jkp").value);
@@ -252,22 +288,6 @@ function computePayment(principal, monthlyI, periods) {
     if (monthlyI <= 0) return principal / periods;
     const denom = 1 - Math.pow(1 + monthlyI, -periods);
     return principal * (monthlyI / denom);
-}
-
-function updateSummary() {
-    const inputs = parseInputs();
-    if (!inputs) {
-        resetOutputs();
-        return;
-    }
-    const { bedrag, jkp, periode, renteType: type } = inputs;
-    const i = monthlyRate(jkp, type);
-    const betaling = computePayment(bedrag, i, periode);
-    DOM.app01.pmtEl.value = fmtCurrency.format(+betaling.toFixed(2));
-    DOM.app01.renteEl.value = (i * 100).toFixed(4) + " %";
-    DOM.app01.periodeJaarEl.value = (periode / 12).toFixed(2) + " jaar";
-    DOM.app01.interestenEl.value = fmtCurrency.format((betaling * periode - bedrag));
-    DOM.app01.aflossingBtn.disabled = false;
 }
 
 function generateSchedule() {
@@ -347,6 +367,53 @@ function printData() {
     preparePrintOverview();
     window.print();
 }
+
+function importData() {
+    let fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.txt,.json';
+    fileInput.onchange = e => {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.onload = event => {
+            let data = JSON.parse(event.target.result);
+            // Populate fields
+            $("#bankName").value = data.bank || "";
+            $("#teLenenBedrag").value = data.bedrag || "";
+            $("#jkp").value = data.jkp || "";
+            $("#periode").value = data.periode || "";
+            $("#renteType").value = data.renteType || "1";
+            $("#startDatum").value = data.startDatum || "";
+            updateSummary();
+        };
+        reader.readAsText(file);
+    };
+    fileInput.click();
+}
+
+function exportData() {
+    const inputs = parseInputs();
+    if (!inputs) {
+        alert("Geen geldige gegevens om te exporteren.");
+        return;
+    }
+    const data = {
+        bank: $("#bankName").value || "",
+        bedrag: inputs.bedrag,
+        jkp: inputs.jkp,
+        periode: inputs.periode,
+        renteType: inputs.renteType,
+        startDatum: DOM.app01.datumEl.value
+    };
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `lening_data ${data.bank} ${data.bedrag/1000}k ${data.periode}m.txt`);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
 
 
 

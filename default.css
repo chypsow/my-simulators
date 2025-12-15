@@ -78,23 +78,6 @@ h1{ margin:0; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bol
 .circle:nth-child(6){ top:370px; right:30px; width:200px; height:200px; background: rgba(250, 208, 196, 0.212); animation-duration:28s;}
 .circle:nth-child(7){ top:450px; left:200px; width:100px; height:100px; background: rgba(250, 208, 196, 0.315); animation-duration:31s;}
 
-/* Sidebar */
-.sidebar {
-    font-family: var(--font-sans);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 260px;
-    height: 100vh;
-    background-color: #24242485;
-    color: #ccc;
-    transition: transform 0.3s ease;
-}
-
-/* Verbergen */
-.sidebar.closed {
-    transform: translateX(-100%);
-}
 
 .menu-btn {
     position: fixed;
@@ -151,10 +134,23 @@ h1{ margin:0; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bol
     left: 260px;
 }
 
-/* Draai pijl */
-/*.sidebar:not(.closed) {
-    transform: rotate(180deg);
-}*/
+/* Sidebar */
+.sidebar {
+    font-family: var(--font-sans);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background-color: #24242485;
+    color: #ccc;
+    transition: transform 0.3s ease;
+}
+
+/* Verbergen */
+.sidebar.closed {
+    transform: translateX(-100%);
+}
 
 .sidebar a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -166,6 +162,7 @@ h1{ margin:0; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bol
 }
 .sidebar a:hover {
     background-color: #424242;
+    color: #e2e2e2;
 }
 .sidebar a.active {
     background-color: #fad0c4a2;

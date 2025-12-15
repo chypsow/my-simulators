@@ -1,4 +1,29 @@
+.heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /*text-align:center;
+    margin:1.5rem 0 0.5rem 0;
+    font-family:var(--font-mono);
+    color:var(--accent);*/
+}
 
+.heading input{
+    margin-left: 1rem;
+    padding: .3rem .5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(139, 139, 139, 0.685);
+    font-family: var(--font-mono);
+    color: #ffffff;
+    background-color: rgba(27, 27, 27, 0.251);
+}
+.heading span{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent);
+}
 /* Form section */
 section{
     display:flex;
