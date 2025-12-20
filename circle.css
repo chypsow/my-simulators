@@ -1,0 +1,31 @@
+/* Decorative background circles (kept separate & performant) */
+.circles-wrapper{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    overflow:hidden;
+}
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:var(--glass);
+    will-change:transform;
+    opacity:.95;
+}
+/* positions preserved from original, animated only if allowed */
+@media (prefers-reduced-motion: no-preference){
+    @keyframes moveCircles {
+        0% { transform: translateY(0) translateX(0); }
+        50% { transform: translateY(400px) translateX(-160px); }
+        100% { transform: translateY(0) translateX(0); }
+    }
+    /*.circle{ animation: moveCircles linear infinite; }*/
+}
+.circle:nth-child(1){ top:320px; right:200px; width:60px; height:60px; animation-duration:25s;}
+.circle:nth-child(2){ top:400px; left:150px; width:120px; height:120px; animation-duration:29s;}
+.circle:nth-child(3){ top:275px; right:200px; width:80px; height:80px; animation-duration:35s;}
+.circle:nth-child(4){ top:170px; right:230px; width:120px; height:120px; animation-duration:28s;}
+.circle:nth-child(5){ top:120px; left:200px; width:100px; height:100px; animation-duration:33s;}
+.circle:nth-child(6){ top:370px; right:30px; width:200px; height:200px; background: rgba(250, 208, 196, 0.212); animation-duration:28s;}
+.circle:nth-child(7){ top:450px; left:200px; width:100px; height:100px; background: rgba(250, 208, 196, 0.315); animation-duration:31s;}
