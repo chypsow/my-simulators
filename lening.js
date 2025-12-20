@@ -1,12 +1,6 @@
-import { $, $all, el, showApp } from './main.js';
-
-const fmtCurrency = new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR",maximumFractionDigits: 2 });
-const fmtDecimal = (digits = 2) => new Intl.NumberFormat("nl-BE", { style: "decimal", maximumFractionDigits: digits });
-const fmtDate = d => new Date(d).toLocaleDateString("nl-BE");
-//const fmtPercent = new Intl.NumberFormat("nl-BE", { style: "percent", maximumFractionDigits: 4 });
+import { $, $all, el, showApp, fmtCurrency, fmtDate, fmtDecimal } from './main.js';
 
 // UI Elements
-
 export function renderApp03() {
     showApp(3);
     const root = $('#app03');
@@ -256,7 +250,7 @@ function resetOutputs() {
     $("#aflossingBtn").disabled = true;
 }
 
-function monthlyRate(jkp, type) {
+export function monthlyRate(jkp, type) {
     if (type === "1") { // effectief
         return Math.pow(1 + jkp / 100, 1 / 12) - 1;
     } else { // nominaal
@@ -264,7 +258,7 @@ function monthlyRate(jkp, type) {
     }
 }
 
-function computePayment(principal, monthlyI, periods) {
+export function computePayment(principal, monthlyI, periods) {
     if (monthlyI <= 0) return principal / periods;
     const denom = 1 - Math.pow(1 + monthlyI, -periods);
     return principal * (monthlyI / denom);

@@ -1,5 +1,5 @@
-import { $, el, showApp } from './main.js';
-import { createHeader, parseInputs } from './lening.js';
+import { $, el, showApp, fmtCurrency } from './main.js';
+import { createHeader, parseInputs, monthlyRate, computePayment } from './lening.js';
 
 export function renderApp02() {
     showApp(2);
@@ -23,33 +23,29 @@ export function renderApp02() {
 function calculteTotals() {
     const inputs = parseInputs();
     if (!inputs) return;
-     const { bedrag, jkp, periode, renteType: type } = inputs;
-    let totaalKapitaal = 0;
-    let totaalRente = 0;
+    const { bedrag, jkp, periode, renteType: type } = inputs;
     const currentDate = new Date($('#input1').value);
     if (isNaN(currentDate)) return;
     const startDate = new Date($('#startDatum').value);
     if (isNaN(startDate)) return;
 
-    
+    const paymentDate = new Date(startDate);
+    const maandRentePercentage = monthlyRate(jkp, type);
+    const betaling = computePayment(bedrag, maandRentePercentage, periode);
+    let totaalKapitaal = 0;
+    let totaalRente = 0;
+    let maandRente = 0;
+
     for (let i = 0; i < periode; i++) {
-        const paymentDate = new Date(startDate);
         paymentDate.setMonth(paymentDate.getMonth() + i);
         if (paymentDate > currentDate) break;
-        const maandKapitaal = bedrag / periode;
-        totaalKapitaal += maandKapitaal;
-        let maandRente = 0;
-        const resterendBedrag = bedrag - (maandKapitaal * i);
-        if (type === 'vast') {
-            maandRente = (resterendBedrag * (jkp / 100)) / 12;
-        } else if (type === 'variabel') {
-            maandRente = (resterendBedrag * (jkp / 100 + 1)) / 12;
-        }
+        maandRente = (bedrag - totaalKapitaal) * maandRentePercentage;
         totaalRente += maandRente;
+        totaalKapitaal += (betaling - maandRente);
     }
     //console.log('kapitaal: ' + totaalKapitaal, 'rente: ' + totaalRente);
-    $('#totaal-kapitaal').value = totaalKapitaal.toFixed(2);
-    $('#totaal-rente').value = totaalRente.toFixed(2);
+    $('#totaal-kapitaal').value = fmtCurrency.format(totaalKapitaal);
+    $('#totaal-rente').value = fmtCurrency.format(totaalRente);
 }
 
 function createCalculator() {

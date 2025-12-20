@@ -5,6 +5,10 @@ import { renderApp02 } from './calculator.js';
 export let activePage = localStorage.getItem('activePage') ? parseInt(localStorage.getItem('activePage')) : 0;
 export const $ = selector => document.querySelector(selector);
 export const $all = selector => Array.from(document.querySelectorAll(selector));
+export const fmtCurrency = new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR",maximumFractionDigits: 2 });
+export const fmtDecimal = (digits = 2) => new Intl.NumberFormat("nl-BE", { style: "decimal", maximumFractionDigits: digits });
+export const fmtDate = d => new Date(d).toLocaleDateString("nl-BE");
+//export const fmtPercent = new Intl.NumberFormat("nl-BE", { style: "percent", maximumFractionDigits: 4 });
 
 export const  el = (tag, options = {}, children = []) => {
     const element = document.createElement(tag);
