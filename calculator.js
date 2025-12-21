@@ -30,10 +30,10 @@ function overzichtInvullen() {
     const renteElement = $('#rente');
     const periodeElement = $('#periodeJaar');
     const interestenElement = $('#interesten');
-    if (pmtElement) $('#pmt2').value = $('#pmt').value;
-    if (renteElement) $('#rente2').value = $('#rente').value;
-    if (periodeElement) $('#periodeJaar2').value = $('#periodeJaar').value;
-    if (interestenElement) $('#interesten2').value = $('#interesten').value;
+    if (pmtElement) $('#pmt2').textContent = pmtElement.value;
+    if (renteElement) $('#rente2').textContent = renteElement.value;
+    if (periodeElement) $('#periodeJaar2').textContent = periodeElement.value;
+    if (interestenElement) $('#interesten2').textContent = interestenElement.value;
 }
 
 function calculteTotals() {
@@ -91,19 +91,19 @@ function createCalculator() {
 function createOverzicht() {
     return el("div", { class: "overzicht" }, [
         el("h2", { text: "Overzicht lening :", class: "overzicht-titel" }),
-        el("div", { class: "info-box", html: `
-            <label> Maandelijkse betaling:
-                <input type="text" id="pmt2" disabled>
-            </label>
-            <label> Maandelijkse rentevoet:
-                <input type="text" id="rente2" disabled>
-            </label>
-            <label> Lening periode:
-                <input type="text" id="periodeJaar2" disabled>
-            </label>
-            <label> Totaal te betalen interesten:
-                <input type="text" id="interesten2" disabled>
-            </label>
+        el("div", { html: `
+            <p> Maandelijkse betaling:
+                <span id="pmt2"></span>
+            </p>
+            <p> Maandelijkse rentevoet:
+                <span id="rente2"></span>
+            </p>
+            <p> Lening periode:
+                <span id="periodeJaar2"></span>
+            </p>
+            <p> Totaal te betalen interesten:
+                <span id="interesten2"></span>
+            </p>
         `})
     ]);
 }
