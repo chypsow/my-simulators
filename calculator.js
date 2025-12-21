@@ -4,11 +4,16 @@ import { createHeader, parseInputs, monthlyRate, computePayment } from './lening
 export function renderApp02() {
     showApp(2);
     const root = $('#app02');
-    if (root.innerHTML.trim() !== "") return; // Prevent re-initialization
+    if (root.innerHTML.trim() !== "") {
+        overzichtInvullen();
+        return; // Prevent re-initialization
+    }
     root.append(
         createHeader('LENING STATUS'),
         createCalculator()
     );
+
+    overzichtInvullen();
 
     $('#vandaag').addEventListener('click', () => {
         const today = new Date().toISOString().split('T')[0];
@@ -18,6 +23,17 @@ export function renderApp02() {
     $('#berekenBtn').addEventListener('click', () => {
         calculteTotals();
     });
+}
+
+function overzichtInvullen() {
+    const pmtElement = $('#pmt');
+    const renteElement = $('#rente');
+    const periodeElement = $('#periodeJaar');
+    const interestenElement = $('#interesten');
+    if (pmtElement) $('#pmt2').value = $('#pmt').value;
+    if (renteElement) $('#rente2').value = $('#rente').value;
+    if (periodeElement) $('#periodeJaar2').value = $('#periodeJaar').value;
+    if (interestenElement) $('#interesten2').value = $('#interesten').value;
 }
 
 function calculteTotals() {
@@ -60,10 +76,30 @@ function calculteTotals() {
 function createCalculator() {
     // Implementation for calculator 1 goes here
     return el('div', { class: 'calculator' }, [
+        createOverzicht(),
         createSectie1(),
         createSectie2(),
-        createSectie3(),
-        createSectie4()
+        createSectie3()
+        //createSectie4()
+    ]);
+}
+function createOverzicht() {
+    return el("div", { class: "overzicht" }, [
+        el("h2", { text: "Overzicht lening :" }),
+        el("div", { class: "info-box", html: `
+            <label> Maandelijkse betaling:
+                <input type="text" id="pmt2" disabled>
+            </label>
+            <label> Maandelijkse rentevoet:
+                <input type="text" id="rente2" disabled>
+            </label>
+            <label> Lening periode:
+                <input type="text" id="periodeJaar2" disabled>
+            </label>
+            <label> Totaal te betalen interesten:
+                <input type="text" id="interesten2" disabled>
+            </label>
+        `})
     ]);
 }
 function createSectie1() {
@@ -84,32 +120,31 @@ function createSectie2() {
            
     ]);
 }
+
 function createSectie3() {
-    return el('div', { class: 'sectie3' }, [
-        el('div', { class: 'bottom-sectie' , html: 
-            `<div class="kapitaal-groep"> 
-                <label> Totaal afbetaald kapitaal:
-                    <input type="text" id="totaal-kapitaal" disabled>
-                </label>
-                <label> Totaal restant kapitaal:
-                    <input type="text" id="restant-kapitaal" disabled>
-                </label>
-            </div>`
+    return el('div', { class: 'sectie-wrapper' }, [
+        
+        el('div', { class: 'kapitaal-groep' , html:`
+            <div class="sectie-header">Kapitaal</div>
             
+            <label> Totaal afbetaald kapitaal:
+                <input type="text" id="totaal-kapitaal" disabled>
+            </label>
+            <label> Totaal restant kapitaal:
+                <input type="text" id="restant-kapitaal" disabled>
+            </label>
+            `
         }),
-    ]);
-}
-function createSectie4() {
-    return el('div', { class: 'sectie4' }, [
-        el('div', { class: 'bottom-sectie' , html:
-            `<div class="rente-groep">
-                <label> Totaal afbetaalde rente:
-                    <input type="text" id="totaal-rente" disabled>
-                </label>
-                <label> Totaal restant rente:
-                    <input type="text" id="restant-rente" disabled>
-                </label>
-            </div>`
+        el('div', { class: 'rente-groep' , html:`
+            <div class="sectie-header">Rente</div>
+           
+            <label> Totaal afbetaalde rente:
+                <input type="text" id="totaal-rente" disabled>
+            </label>
+            <label> Totaal restant rente:
+                <input type="text" id="restant-rente" disabled>
+            </label>
+            `
         }),
     ]);
 }

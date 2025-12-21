@@ -396,7 +396,7 @@ function exportData() {
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
     //filename format: bank_bedragk_periodem_startDatum.txt
-    const safeBankName = data.bank.replace(/[^a-z0-9]/gi, '_').toLowerCase() || "bank";
+    const safeBankName = data.bank.replace(/[^a-z0-9]/gi, '_').toUpperCase() || "bank";
     //als datum niet ingevuld is, gebruik dan 'nodate'
     if (!data.startDatum) data.startDatum = "nodate";
     const filename = `${safeBankName}_${data.bedrag/1000}k_${data.periode}m_${data.startDatum}.txt`;
