@@ -6,6 +6,6 @@
     "build-icons": "node tools/convert-icons.js"
   },
   "devDependencies": {
-    "sharp": "^0.32.0"
+    "sharp": "^0.32.6"
   }
 }
