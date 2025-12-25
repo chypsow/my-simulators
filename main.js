@@ -44,9 +44,7 @@ export function createHeader(tekst) {
         el("h1", { text: tekst })
     ]);
 }
-export function createBerekenButton() {
-    return el('button', { id: 'berekenBtn', class: 'bereken-btn', text: 'Bereken' });
-}
+
 
 function makeTopHeader() {
     const header = $('#topHeader');
@@ -99,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     makeTopHeader();
     buildApp01();
     buildApp02();
+    buildApp03();
     showApp(activePage + 1);
     //renderApps();
 });

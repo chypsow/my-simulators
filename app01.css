@@ -22,7 +22,7 @@
 }
 /* Form section */
 section{
-    margin: 1.5rem 0;
+    margin-bottom: 1.5rem ;
     display: flex;
     flex-direction: column;
     gap: var(--gap);
@@ -33,7 +33,7 @@ section{
     margin:0;
     padding:1rem;
     border-radius:var(--radius);
-    border: 1px solid rgba(139, 139, 139, 0.26);
+    /*border: 1px solid rgba(139, 139, 139, 0.26);*/
     width:100%;
     /*max-width: 800px;*/
     /*background:var(--card-bg);*/
@@ -60,13 +60,20 @@ section{
     margin:0;
     padding:1rem;
     border-radius:var(--radius);
-    border: 1px solid rgba(139, 139, 139, 0.26);
+    border: 1px solid rgba(139, 139, 139, 0.37);
     /*background:var(--card-bg);*/
     /*color:inherit;*/
     /*min-width:260px;*/
 }
-.card-light{ background: linear-gradient(180deg,#8b8b8bc7 0%, #5e5e5e40 100%); color:var(--accent); } /*color:#2e2e2ef5;}*/
-.card-dark{ background: linear-gradient(180deg,#2b2b2b 0%, #444 100%); color:var(--accent); }
+.card-light{ 
+    background: linear-gradient(180deg,#8b8b8bc7 0%, #5e5e5e40 100%); color:var(--accent);
+    background: linear-gradient(180deg,#2b2b2b 0%, #444 100%); color:var(--accent);
+    background: transparent;
+} /*color:#2e2e2ef5;}*/
+.card-dark{ 
+     
+    background: var(--calc-bg);
+}
 .info-box{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -109,7 +116,7 @@ input , select{
     font-size:1rem;
     padding:.35rem .5rem;
     border-radius:4px;
-    border:1px solid rgba(139, 139, 139, 0.3);
+    border:1px solid rgba(139, 139, 139, 0.685);
     background-color: rgba(27, 27, 27, 0.251);
     color:#ffffff; 
     /*outline:none;*/

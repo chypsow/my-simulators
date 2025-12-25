@@ -1,4 +1,4 @@
-import { $, el, createHeader, createBerekenButton, fmtCurrency, $all, fmtDate } from './main.js';
+import { $, el, createHeader, fmtCurrency, $all, fmtDate } from './main.js';
 import { parseInputs, monthlyRate, computePayment } from './app01.js';
 
 export function buildApp02() {
@@ -37,7 +37,7 @@ export function buildApp02() {
         $all('.uitkomst').forEach(el => el.textContent = '');
     };
     $('.datum-status').addEventListener('change', handleChangeDatum);
-    $('#berekenBtn').addEventListener('click', calculteTotals);
+    $('#berekenBtn2').addEventListener('click', calculteTotals);
 }
 
 /*export function overzichtInvullen() {
@@ -119,6 +119,9 @@ function calculteTotals() {
 }
 
 function createCalculator() {
+    const createBerekenButton = () => {
+        return el('button', { id: 'berekenBtn2', class: 'bereken-btn', text: 'Bereken' });
+    }
     return el('div', { class: 'calculator' }, [
         createOverzicht(),
         createSectie1(),
@@ -127,6 +130,7 @@ function createCalculator() {
         //createSectie4()
     ]);
 }
+
 function createOverzicht() {
     return el("div", { class: "overzicht" }, [
         el("h2", { text: "Leningsgegevens :", class: "overzicht-titel" }),

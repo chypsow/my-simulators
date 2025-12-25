@@ -1,4 +1,4 @@
-import { $, $all, el, createHeader, createBerekenButton,  fmtCurrency, fmtDate, fmtDecimal } from './main.js';
+import { $, $all, el, createHeader,  fmtCurrency, fmtDate, fmtDecimal } from './main.js';
 
 export function buildApp01() {
     $('#app01').append(
@@ -37,15 +37,36 @@ export function buildApp01() {
     $("#startDatum").addEventListener("change", () => {
         const startDate = $("#startDatum").valueAsDate;
         if (startDate) {
-            const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + parseInt($("#periode").value || "0", 10), startDate.getDate());
-            $("#eindDatum").textContent = `Einddatum: ${fmtDate(endDate)}`;
+            const periode = parseInt($("#periode").value || "0", 10);
+            const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + periode, startDate.getDate());
+            const newEndDateStr = fmtDate(endDate);
+            const day = startDate.getDate();
+            let currentEndDateStr = $("#eindDatum").textContent.replace("Einddatum: ", "");
+            console.log('currentEndDateStr : ', currentEndDateStr);
+            // convert currentEndDateStr to Date object to adjust day
+            if (currentEndDateStr) {
+                const parts = currentEndDateStr.split('/');
+                if (parts.length === 3) {
+                    const currentEndDate = new Date(parts[2], parts[1] - 1, day);
+                    console.log('currentEndDate before : ', currentEndDate);
+                    currentEndDateStr = fmtDate(currentEndDate);
+                }
+            }
+            console.log('newEndDateStr : ', newEndDateStr);
+            console.log('currentEndDateStr after : ', currentEndDateStr);
+            // Return if month and year haven't changed
+            if (newEndDateStr === currentEndDateStr) {
+                return;
+            }
+            
+            $("#eindDatum").textContent = `Einddatum: ${newEndDateStr}`;
             $("#eindDatum").classList.remove("eind-datum-hidden");
             //updateSummary();
-            resetOutputs();
         } else {
             $("#eindDatum").classList.add("eind-datum-hidden");
         }
         
+        resetOutputs();
         //if (!$("#aflossingstabel").hidden) generateSchedule();
         //$all(".uitkomst").forEach(el => el.textContent = "");
     });
@@ -65,6 +86,7 @@ export function buildApp01() {
         }
     });*/
     //$("#afdrukken").addEventListener("click", printData);
+    $("#berekenBtn1").addEventListener("click", updateSummary);
     $("#importBtn").addEventListener("click", importData);
     $("#exportBtn").addEventListener("click", exportData);
 }
@@ -91,6 +113,9 @@ function createTopRow() {
 }
 
 function createMainSection() {
+    const createBerekenButton = () => {
+        return el('button', { id: 'berekenBtn1', class: 'bereken-btn', text: 'Bereken' });
+    }
     return el("section", { class: "no-print" }, [
         createInputFieldset(),
         createBerekenButton(),
@@ -131,7 +156,7 @@ function createInputFieldset() {
             })
         ]);
     };
-    return el("div", { class: "input-fields card-dark" }, [
+    return el("div", { class: "input-fields card-light" }, [
         el("h2", { text: "In te vullen :" }),
         el("div", { class: "form-inhoud" }, [
             createBedragInput(),

@@ -52,8 +52,19 @@ header{
     margin: 1.5rem 0 2.5rem;
     /*background: linear-gradient(180deg, rgba(255, 255, 255, 0.048), rgba(121, 121, 121, 0.13),rgba(255, 255, 255, 0.158));*/
 }
-h1{ margin:0; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bold; font-size:1.5rem; }
-
+h1{ 
+    margin:0; 
+    font-family: var(--font-sans);
+    font-weight: bold; 
+    font-size:2rem; 
+    text-shadow: 
+        1px 1px 0 rgba(0, 217, 255, 0.8),
+        2px 2px 0 rgba(0, 217, 255, 0.6),
+        3px 3px 0 rgba(0, 217, 255, 0.4),
+        4px 4px 0 rgba(0, 217, 255, 0.2),
+        5px 5px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 3px;
+}
 /* topheader */
 .top-header {
     display: flex;
@@ -85,7 +96,7 @@ h1{ margin:0; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bol
     width:clamp(320px, 60%, 900px);
     margin:2rem auto;
     padding:1.25rem;
-    background: var(--calc-bg);
+    background: #0f3460;
     opacity: .98;
     border-radius:var(--radius);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
