@@ -22,7 +22,7 @@ export function buildApp01() {
             }
         }
         // Skip resetOutputs if startDatum changed but month/year didn't
-        if (inp.id === "startDatum") {
+        if (inp.id === "startDatum" || inp.id === "currentDate") {
             // handle eindDatum update in separate listener
             return;
         }
@@ -47,21 +47,21 @@ export function buildApp01() {
             const newEndDateStr = fmtDate(endDate);
             const day = startDate.getDate();
             let currentEndDateStr = $("#eindDatum").textContent.replace("Einddatum: ", "");
-            console.log('currentEndDateStr : ', currentEndDateStr);
+            //console.log('currentEndDateStr : ', currentEndDateStr);
             // convert currentEndDateStr to Date object to adjust day
             if (currentEndDateStr) {
                 const parts = currentEndDateStr.split('/');
                 if (parts.length === 3) {
                     const currentEndDate = new Date(parts[2], parts[1] - 1, day);
-                    console.log('currentEndDate before : ', currentEndDate);
+                    //console.log('currentEndDate before : ', currentEndDate);
                     currentEndDateStr = fmtDate(currentEndDate);
                 }
             }
-            console.log('newEndDateStr : ', newEndDateStr);
-            console.log('currentEndDateStr after : ', currentEndDateStr);
+            //console.log('newEndDateStr : ', newEndDateStr);
+            //console.log('currentEndDateStr after : ', currentEndDateStr);
             // Return if month and year haven't changed
             if (newEndDateStr === currentEndDateStr) {
-                console.log('no change in month or year');
+                //console.log('no change in month or year');
                 // handle eindDatum update
                 $("#eindDatum").textContent = `Einddatum: ${newEndDateStr}`;
                 return;
@@ -81,8 +81,23 @@ export function buildApp01() {
     });
 
     $("#currentDate").addEventListener("change", () => {
-        //updateSummary();
+        // make the same as startDatum change
+        const currentDate = $("#currentDate").valueAsDate;
+        if (currentDate) {
+            // check if month/year changed
+            const prevDateStr = $("#currentDate").getAttribute("data-prev-date");
+            const newDateStr = currentDate.toISOString().split('T')[0];
+            console.log('prevDateStr day: ', prevDateStr.slice(0,7));
+            console.log('newDateStr day: ', newDateStr.slice(0,7));
+            if (prevDateStr.slice(0,7) === newDateStr.slice(0,7)) return;
+            $("#currentDate").setAttribute("data-prev-date", newDateStr);
+        }
         resetOutputs();
+        
+
+
+        //updateSummary();
+        //resetOutputs();
         //if (!$("#aflossingstabel").hidden) generateSchedule();
         //$all(".uitkomst").forEach(el => el.textContent = "");
     });
@@ -285,7 +300,9 @@ function updateSummary() {
     const currentDateInput = $("#currentDate").value;
     const currentDate = currentDateInput ? new Date(currentDateInput) : new Date();
     if (!currentDateInput) {
-        $("#currentDate").value = currentDate.toISOString().split('T')[0];
+        const currentDateStr = currentDate.toISOString().split('T')[0];
+        $("#currentDate").value = currentDateStr;
+        $("#currentDate").setAttribute("data-prev-date", currentDateStr);
     }
     const remaining = computeRemaining(bedrag, jkp, periode, type, startDate, currentDate);
     const resterendeMaanden = remaining.period;

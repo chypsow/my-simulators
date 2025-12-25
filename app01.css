@@ -31,7 +31,7 @@ section{
 .input-fields{
     /*flex:1 1 auto;*/
     margin:0;
-    padding:1rem;
+    /*padding:1rem;*/
     border-radius:var(--radius);
     /*border: 1px solid rgba(139, 139, 139, 0.26);*/
     width:100%;
@@ -163,8 +163,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     gap: 1rem;
 }
 .datums span{
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: var(--accent);
-    font-size: 1rem;
+    font-size: .9rem;
 }
 .eind-datum-hidden {
     display: none;
@@ -199,8 +201,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: linear-gradient(180deg,#020824,#10354b);
     border:1px solid rgba(0,0,0,0.5) 1px solid rgba(0,0,0,0.5);
     border-radius:4px;
-    color: var(--accent);
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s, filter 0.3s;
 }
+
 .import-export-buttons button:hover{ cursor: pointer; filter: brightness(0.7); }
 
 .button-group{

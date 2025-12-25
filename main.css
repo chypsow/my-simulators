@@ -96,7 +96,7 @@ h1{
     width:clamp(320px, 60%, 900px);
     margin:2rem auto;
     padding:1.25rem;
-    background: #0f3460;
+    background: #a4add448;
     opacity: .98;
     border-radius:var(--radius);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -114,6 +114,11 @@ h1{
     background-color: var(--accent);
     color: #000000;
     cursor: pointer;
+    transition: background-color 0.3s, filter 0.3s;
+}
+.bereken-btn:hover {
+    background-color: var(--accent);
+    filter: brightness(0.7);
 }
 /* Footer */
 footer{
