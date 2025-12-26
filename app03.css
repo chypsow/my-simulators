@@ -3,7 +3,7 @@
     width:clamp(320px, 60%, 1200px);
     margin:2rem auto;
     padding:1.25rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-plus);
     opacity: .98;
     border-radius:var(--radius);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -41,7 +41,7 @@ table{
     margin:1.5rem 0;
     table-layout:fixed;
 }
-.table-header{ position:sticky; top:0; background:linear-gradient(180deg,#e9e9e9 10%,#1b1b1b 360%); color:#000; }
+.table-header{ position:sticky; top:var(--ht-top-header); background:var(--bg-table-header) ; color:#000000; }
 .table-header th, .table-inhoud td{ padding:.5rem .2rem; font-size:.8rem; text-align:center; border-bottom:1px solid #dcdcdc; overflow:hidden; text-overflow:ellipsis; white-space:normal; }
 
 

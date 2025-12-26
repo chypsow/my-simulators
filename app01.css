@@ -66,13 +66,12 @@ section{
     /*min-width:260px;*/
 }
 .card-light{ 
-    background: linear-gradient(180deg,#8b8b8bc7 0%, #5e5e5e40 100%); color:var(--accent);
-    background: linear-gradient(180deg,#2b2b2b 0%, #444 100%); color:var(--accent);
+    /*background: linear-gradient(180deg,#8b8b8bc7 0%, #5e5e5e40 100%); color:var(--accent);
+    background: linear-gradient(180deg,#2b2b2b 0%, #444 100%); color:var(--accent);*/
     background: transparent;
 } /*color:#2e2e2ef5;}*/
 .card-dark{ 
-     
-    background: var(--calc-bg);
+    background: var(--card-bg);
 }
 .info-box{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
