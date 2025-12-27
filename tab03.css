@@ -13,20 +13,6 @@
     gap:1rem;
     justify-content:space-between;
 }
-/*.button-group button{
-    font-family:var(--font-mono);
-    font-size: 1rem;
-    padding:.35rem .8rem;
-    background: linear-gradient(180deg,#020824,#10354b);
-    border:1px solid rgba(0,0,0,0.12);
-    border-radius:4px;
-    color: #ffffff;
-    font-weight: bold;
-    transition: background-color 0.3s, filter 0.3s;
-}
-.button-group button:hover:not([disabled]){ cursor:pointer; filter:brightness(0.8); }
-*/
-button[disabled]{ opacity:0.4; }
 
 /* Table styles */
 .managerTable{ width:100%; overflow:auto; }
@@ -36,14 +22,12 @@ table{
     border-collapse:collapse;
     background:#fff;
     color:#222;
-    /*font-family: 'Courier New', Courier, monospace;*/
     /*font-family:var(--font-mono);*/
     margin:1.5rem 0;
     table-layout:fixed;
 }
 .table-header{ position:sticky; top:var(--ht-top-header); background:var(--bg-table-header) ; color:#000000; }
 .table-header th, .table-inhoud td{ padding:.5rem .2rem; font-size:.8rem; text-align:center; border-bottom:1px solid #dcdcdc; overflow:hidden; text-overflow:ellipsis; white-space:normal; }
-
 
 /* Misc */
 .lening-overzicht{ list-style:none; padding:0; margin:0 0 1rem 0; column-count:3; column-gap:2rem; }

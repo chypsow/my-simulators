@@ -5,6 +5,7 @@
     align-items: center;
 }
 
+/* bank name input */
 .top-row input{
     padding: .3rem .5rem;
     font-size: 1rem;
@@ -20,6 +21,29 @@
     font-weight: bold;
     color: var(--accent);
 }
+/* Buttons */
+.import-export-buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+.import-export-buttons button{
+    font-family:var(--font-mono);
+    font-size: .9rem;
+    padding: .35rem 1rem;
+    background: linear-gradient(180deg,#020824,#10354b);
+    border-top: 2px solid rgba(139, 139, 139, 0.5);
+    border-left: 2px solid rgba(139, 139, 139, 0.5);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    border-right: 1px solid rgb(0, 0, 0);
+    border-radius:4px;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s, filter 0.3s;
+}
+
+.import-export-buttons button:hover{ cursor: pointer; filter: brightness(0.7); }
+
 /* Form section */
 section{
     margin-bottom: 1.5rem ;
@@ -27,6 +51,30 @@ section{
     flex-direction: column;
     gap: var(--gap);
     /*align-items: center;*/
+}
+.header-row{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+.header-row span{
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+.header-row-inputs{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   /* margin-bottom: 1rem;*/
+}
+.header-row-inputs span{
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #e4e4e4;
 }
 .input-fields{
     /*flex:1 1 auto;*/
@@ -115,7 +163,7 @@ input , select{
     font-size:1rem;
     padding:.35rem .5rem;
     border-radius:4px;
-    border:1px solid rgba(139, 139, 139, 0.685);
+    border:1px solid rgba(139, 139, 139, 0.437);
     background-color: rgba(27, 27, 27, 0.251);
     color:#ffffff; 
     /*outline:none;*/
@@ -123,12 +171,12 @@ input , select{
 .rente-type{
     padding:.35rem .5rem;
     border-radius:4px;
-    border:1px solid rgba(139, 139, 139, 0.3);;
+    border:1px solid rgba(139, 139, 139, 0.3);
     background-color: rgba(27, 27, 27, 0.251);
     font-size: .9rem;
     width: fit-content;
     appearance: none; /* Verwijder standaard pijl */
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGwxMiAwTDYgOEwwIDBaIiBmaWxsPSIjZmZmIi8+PC9zdmc+'); /* Aangepaste pijl */
+    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="8" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><polyline points="1,1 6,6 11,1" stroke="%23fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'); /* Outline arrow */
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
     background-size: .8rem;
@@ -180,46 +228,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Compact layout for rente + select */
 .label-select{ display:flex; align-items:center; gap:.5rem; }
 
-.header-row{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
-}
-.header-row span{
-    font-family: var(--font-mono);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--accent);
-}
-.header-row-inputs{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-   /* margin-bottom: 1rem;*/
-}
-.header-row-inputs span{
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    font-weight: normal;
-    color: #e4e4e4;
-}
-/* Buttons */
-.import-export-buttons{
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
-.import-export-buttons button{
-    font-family:var(--font-mono);
-    font-size: .9rem;
-    padding: .35rem 1rem;
-    background: linear-gradient(180deg,#020824,#10354b);
-    border:1px solid rgba(0,0,0,0.5) 1px solid rgba(0,0,0,0.5);
-    border-radius:4px;
-    color: #fff;
-    font-weight: bold;
-    transition: background-color 0.3s, filter 0.3s;
-}
 
-.import-export-buttons button:hover{ cursor: pointer; filter: brightness(0.7); }
+
