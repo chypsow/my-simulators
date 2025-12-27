@@ -75,6 +75,7 @@ h1{
     line-height: var(--ht-top-header);
     color: rgba(255, 255, 255, 0.521);
     text-decoration: none;
+    white-space: nowrap;
 }
 .top-header a:hover {
     background-color: #424242;
