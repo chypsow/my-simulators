@@ -1,8 +1,8 @@
 import { $, el, formatLocalDate, createHeader, fmtCurrency, $all } from './main.js';
-import { parseInputs, computeRemaining, updateSummary } from './app01.js';
+import { parseInputs, computeRemaining, updateSummary } from './tab01.js';
 
-export function buildApp02() {
-    $('#app02').append(
+export function buildtab02() {
+    $('#tab02').append(
         createHeader('LENING - STATUS TUSSEN 2 DATUMS'),
         createCalculator()
     );
@@ -16,7 +16,7 @@ export function buildApp02() {
             if (prevDateStr && prevDateStr.slice(0,7) === newDateStr.slice(0,7)) return;
             startDateInput.setAttribute("data-prev-date", newDateStr);
         }
-        $all('.output-app02').forEach(el => el.textContent = '');
+        $all('.output-tab02').forEach(el => el.textContent = '');
     });
 
     const endDateInput = $('#einddatum-status');
@@ -25,12 +25,12 @@ export function buildApp02() {
         if (currentDate) {
             const prevDateStr = endDateInput.getAttribute("data-prev-date");
             const newDateStr = formatLocalDate(currentDate);
-            console.log('endDateInput change - newDateStr:', newDateStr);
-            console.log('endDateInput change - prevDateStr:', prevDateStr);
+            //console.log('endDateInput change - newDateStr:', newDateStr);
+            //console.log('endDateInput change - prevDateStr:', prevDateStr);
             if (prevDateStr && prevDateStr.slice(0,7) === newDateStr.slice(0,7)) return;
             endDateInput.setAttribute("data-prev-date", newDateStr);
         }
-        $all('.output-app02').forEach(el => el.textContent = '');
+        $all('.output-tab02').forEach(el => el.textContent = '');
     });
     $('#berekenBtn2').addEventListener('click', calculteTotals);
 }
@@ -99,30 +99,30 @@ function createOverzicht() {
         el('div', { class: 'overzicht-inhoud' }, [
             el("div", { html: `
                 <p> Lening bedrag:
-                    <span id="bedrag-2" class="output-app01"></span>
+                    <span id="bedrag-2" class="output-tab01"></span>
                 </p>
                 <p> Maandelijkse betaling:
-                    <span id="pmt-2" class="output-app01"></span>
+                    <span id="pmt-2" class="output-tab01"></span>
                 </p>
                 <p> Maandelijkse rentevoet:
-                    <span id="rente-2" class="output-app01"></span>
+                    <span id="rente-2" class="output-tab01"></span>
                 </p>
                 <p> Totaal te betalen interesten:
-                    <span id="interesten-2" class="output-app01"></span>
+                    <span id="interesten-2" class="output-tab01"></span>
                 </p>
             `}),
             el("div", { html: `
                 <p> Startdatum lening:
-                    <span id="startDatumDisplay" class="output-app01"></span>
+                    <span id="startDatumDisplay" class="output-tab01"></span>
                 </p>
                 <p> Einddatum lening:
-                    <span id="endDatumDisplay" class="output-app01"></span>
+                    <span id="endDatumDisplay" class="output-tab01"></span>
                 </p>
                 <p> Lening periode:
-                    <span id="periodeJaar-2" class="output-app01"></span>
+                    <span id="periodeJaar-2" class="output-tab01"></span>
                 </p>
                 <p> Resterende looptijd:
-                    <span id="resterendeLooptijd-2" class="output-app01"></span>
+                    <span id="resterendeLooptijd-2" class="output-tab01"></span>
                 </p>
             `})
         ])
@@ -152,7 +152,7 @@ function createOutputSectie() {
         el('div', { class: 'kapitaal-groep' , html:`
             <div class="sectie-header">
                 <p> Afbetaald kapitaal: 
-                    <span id="totaal-kapitaal" class="output-app02"></span>
+                    <span id="totaal-kapitaal" class="output-tab02"></span>
                 </p>
             </div>
             `
@@ -160,7 +160,7 @@ function createOutputSectie() {
         el('div', { class: 'rente-groep' , html:`
             <div class="sectie-header">
                 <p> Afbetaalde Rente: 
-                    <span id="totaal-rente" class="output-app02"></span>
+                    <span id="totaal-rente" class="output-tab02"></span>
                 </p>
             </div>
             `
@@ -169,7 +169,7 @@ function createOutputSectie() {
         el('div', { class: 'totaal-groep' , html:`
             <div class="sectie-header">
                 <p> Totaal Afbetaald:
-                    <span id="totaal-afbetaald" class="output-app02"></span>
+                    <span id="totaal-afbetaald" class="output-tab02"></span>
                 </p>
             </div>
             `

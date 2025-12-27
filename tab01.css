@@ -92,7 +92,7 @@ section{
     font-size:1rem;
     color:#dadada;
 }
-.info-box .output-app01, .info-box .output-status-app01{
+.info-box .output-tab01, .info-box .output-status-tab01{
     font-family:var(--font-mono);
     margin-left:0.5rem;
     font-size:1.1rem;

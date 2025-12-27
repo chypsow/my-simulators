@@ -1,7 +1,7 @@
 import { $, $all, el,formatLocalDate, createHeader,  fmtCurrency, fmtDate, fmtDecimal } from './main.js';
 
-export function buildApp01() {
-    $('#app01').append(
+export function buildtab01() {
+    $('#tab01').append(
         createHeader('LENING - OVERZICHT EN STATUS'),
         createTopRow(),
         createMainSection(),
@@ -169,22 +169,22 @@ function createLeftSummaryFieldset() {
         el("h2", { text: "Overzicht lening :" }),
         el("div", { class: "info-box", html: `
             <p> Lening bedrag:
-                <span id="bedrag-1" class="output-app01"></span>
+                <span id="bedrag-1" class="output-tab01"></span>
             </p>
             <p> Maandelijkse aflossing:
-                <span id="pmt-1" class="output-app01"></span>
+                <span id="pmt-1" class="output-tab01"></span>
             </p>
             <p> Maandelijkse rentevoet:
-                <span id="rente-1" class="output-app01"></span>
+                <span id="rente-1" class="output-tab01"></span>
             </p>
             <p> Totaal te betalen interesten:
-                <span id="interesten-1" class="output-app01"></span>
+                <span id="interesten-1" class="output-tab01"></span>
             </p>
             <p> Lening periode:
-                <span id="periodeJaar-1" class="output-app01"></span>
+                <span id="periodeJaar-1" class="output-tab01"></span>
             </p>
             <p> Resterende looptijd:
-                <span id="resterendeLooptijd-1" class="output-app01"></span>
+                <span id="resterendeLooptijd-1" class="output-tab01"></span>
             </p>
         `})
     ]);
@@ -195,21 +195,21 @@ function createRightSummaryFieldset() {
         el("div", { class: "info-box", html: `
             
             <p> Uitstaand kapitaal:
-                <span id="uitstaandKapitaal" class="output-status-app01"></span>
+                <span id="uitstaandKapitaal" class="output-status-tab01"></span>
             </p>
             <p> Resterende rente:
-                <span id="resterendeInteresten" class="output-status-app01"></span>
+                <span id="resterendeInteresten" class="output-status-tab01"></span>
             </p>
             <br>
             <p> Afbetaald kapitaal:
-                <span id="afbetaaldKapitaal-1" class="output-status-app01"></span>
+                <span id="afbetaaldKapitaal-1" class="output-status-tab01"></span>
             </p>
             <p> Afbetaalde rente:
-                <span id="afbetaaldeRente-1" class="output-status-app01"></span>
+                <span id="afbetaaldeRente-1" class="output-status-tab01"></span>
             </p>
             <hr class="output-sectie-separator">
             <p> Totaal afbetaald:
-                <span id="totaalBetaald-1" class="output-status-app01"></span>
+                <span id="totaalBetaald-1" class="output-status-tab01"></span>
             </p>
          `
         })
@@ -316,17 +316,17 @@ export function parseInputs() {
 }
 
 function resetOutputs() {
-    $all(".output-app01").forEach(o => o.textContent = "");
+    $all(".output-tab01").forEach(o => o.textContent = "");
     resetStatusOutputs();
     //
-    $all(".output-app02").forEach(o => o.textContent = "");
+    $all(".output-tab01").forEach(o => o.textContent = "");
     $("#afdrukken").style.visibility = "hidden";
     $("#aflossingstabel").hidden = true;
     $("#aflossingBtn").style.visibility = "hidden";
 }
 
 function resetStatusOutputs() {
-    $all(".output-status-app01").forEach(o => o.textContent = "");
+    $all(".output-status-tab01").forEach(o => o.textContent = "");
 }
 
 export function monthlyRate(jkp, type) {

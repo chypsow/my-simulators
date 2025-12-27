@@ -1,7 +1,7 @@
 
-import { buildApp01 } from './app01.js';
-import { buildApp02 } from './app02.js';
-import { buildApp03, preparePrintOverview } from './app03.js';
+import { buildtab01 } from './tab01.js';
+import { buildtab02 } from './tab02.js';
+import { buildtab03, preparePrintOverview } from './tab03.js';
 
 export let activePage = localStorage.getItem('activePage') ? parseInt(localStorage.getItem('activePage')) : 0;
 export const $ = selector => document.querySelector(selector);
@@ -32,18 +32,13 @@ export const  el = (tag, options = {}, children = []) => {
     children.forEach(child => element.appendChild(child));
     return element;
 };
-export const showApp = (index) => {
+export const renderTab = (index) => {
     for (let i = 1; i <= 4; i++) {
         if (i !== index) {
-            $(`#app0${i}`).style.display = "none";
+            $(`#tab0${i}`).style.display = "none";
         } else {
-            $(`#app0${i}`).style.display = "block";
-            if(i === 3) {
-                preparePrintOverview();
-                $(`#app0${i}`).classList.add("table-wrapper");
-                return;
-            }
-            $(`#app0${i}`).classList.add("wrapper");
+            $(`#tab0${i}`).style.display = "block";
+            if(i === 3) preparePrintOverview();
         }   
     }
 };
@@ -74,8 +69,8 @@ function makeTopHeader() {
             hyperlink.setAttribute('aria-selected', 'true');
             activePage = i;
             localStorage.setItem('activePage', activePage);
-            showApp(activePage + 1);
-            createHeader();
+            renderTab(activePage + 1);
+            //createHeader();
         });
         header.appendChild(hyperlink);
     });
@@ -93,9 +88,9 @@ function makeCircleContainer() {
 document.addEventListener("DOMContentLoaded", () => {
     makeCircleContainer();
     makeTopHeader();
-    buildApp01();
-    buildApp02();
-    buildApp03();
-    showApp(activePage + 1);
+    buildtab01();
+    buildtab02();
+    buildtab03();
+    renderTab(activePage + 1);
 });
 
