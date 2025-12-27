@@ -52,4 +52,10 @@
     table{ table-layout:auto ; width:100%; }
     .table-header th{ font-size:0.7rem ; color:#000; border-color:#000;}
     header, footer{ display:none; }
+    .lening-overzicht{
+        column-count:1;
+        background:transparent;
+        box-shadow:none;
+        padding:0;
+    }
 }

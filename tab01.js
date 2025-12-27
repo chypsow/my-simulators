@@ -236,7 +236,14 @@ export function updateSummary() {
     $("#pmt-1").textContent = fmtCurrency.format(betaling);
     $("#rente-1").textContent = fmtDecimal(4).format(i * 100) + " %";
     $("#interesten-1").textContent = fmtCurrency.format((betaling * periode - bedrag));
-    $("#periodeJaar-1").textContent = fmtDecimal(1).format(periode / 12) + " jaar";
+
+    const formatDuration = (remainingMonths) => {
+        const jaren = Math.floor(remainingMonths / 12);
+        const maanden = remainingMonths % 12;
+        return jaren > 0 ? `${jaren} jaar${maanden > 0 ? ` ${maanden} maanden` : ''}` : `${maanden} maanden`;
+    }
+
+    $("#periodeJaar-1").textContent = formatDuration(periode);
     
     // Calculate remaining duration from today to end date
     const today = new Date();
@@ -246,9 +253,7 @@ export function updateSummary() {
     if (today < endDate) {
         resterendeMaanden = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
     }
-    const jaren = Math.floor(resterendeMaanden / 12);
-    const maanden = resterendeMaanden % 12;
-    const display = jaren > 0 ? `${jaren} jaar${maanden > 0 ? ` ${maanden} maanden` : ''}` : `${maanden} maanden`;
+    const display = formatDuration(resterendeMaanden);
     $('#resterendeLooptijd-1').textContent = resterendeMaanden ? display : '0 maanden';
 
     // Calculate remaining capital and interest up to currentDate
