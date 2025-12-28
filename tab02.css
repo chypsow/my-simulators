@@ -5,11 +5,11 @@
     background: var(--card-bg);
     border-radius: var(--radius);
 }
-.overzicht p {
+.overzicht p span:first-child {
     margin: .5rem 0;
     font-size: 1rem;
 }
-.overzicht span {
+.overzicht p span:nth-child(2) {
     font-family:var(--font-mono);
     /*margin-left: 0.5rem;*/
     font-weight: bold;

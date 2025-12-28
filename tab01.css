@@ -23,14 +23,16 @@
 }
 /* Buttons */
 .import-export-buttons{
+    
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
 }
 .import-export-buttons button{
+    min-width: 7.5rem;
     font-family:var(--font-mono);
     font-size: .9rem;
-    padding: .35rem 1rem;
+    padding: .35rem .8rem;
     background: linear-gradient(180deg,#020824,#10354b);
     border-top: 2px solid rgba(139, 139, 139, 0.5);
     border-left: 2px solid rgba(139, 139, 139, 0.5);

@@ -85,30 +85,30 @@ function createOverzicht() {
         el('div', { class: 'overzicht-header', html: `<h2 data-i18n="section.loan-overview">${t('section.loan-overview')}</h2><span><span data-i18n="label.today">${t('label.today')}</span> <span id="todayDate">${fmtDate(new Date())}</span></span>` }),
         el('div', { class: 'overzicht-inhoud' }, [
             el("div", { html: `
-                <p> ${t('output.loan-amount')}
+                <p> <span data-i18n="output.loan-amount">${t('output.loan-amount')}</span>
                     <span id="bedrag-2" class="output-tab01"></span>
                 </p>
-                <p> ${t('output.monthly-payment')}
+                <p> <span data-i18n="output.monthly-payment">${t('output.monthly-payment')}</span>
                     <span id="pmt-2" class="output-tab01"></span>
                 </p>
-                <p> ${t('output.monthly-rate')}
+                <p> <span data-i18n="output.monthly-rate">${t('output.monthly-rate')}</span>
                     <span id="rente-2" class="output-tab01"></span>
                 </p>
-                <p> ${t('output.total-interest')}
+                <p> <span data-i18n="output.total-interest">${t('output.total-interest')}</span>
                     <span id="interesten-2" class="output-tab01"></span>
                 </p>
             `}),
             el("div", { html: `
-                <p> ${t('label.start-date')}
+                <p> <span data-i18n="label.start-date">${t('label.start-date')}</span>
                     <span id="startDatumDisplay" class="output-tab01"></span>
                 </p>
-                <p> ${t('label.end-date')}
+                <p> <span data-i18n="label.end-date">${t('label.end-date')}</span>
                     <span id="eindDatumDisplay" class="output-tab01"></span>
                 </p>
-                <p> ${t('output.loan-period')}
+                <p> <span data-i18n="output.loan-period">${t('output.loan-period')}</span>
                     <span id="periodeJaar-2" class="output-tab01"></span>
                 </p>
-                <p> ${t('output.remaining-duration')}
+                <p> <span data-i18n="output.remaining-duration">${t('output.remaining-duration')}</span>
                     <span id="resterendeLooptijd-2" class="output-tab01"></span>
                 </p>
             `})

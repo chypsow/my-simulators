@@ -9,8 +9,8 @@
   background: rgba(255, 255, 255, 0);
   padding: 8px 12px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);*/
 }
 
 .lang-btn {
@@ -28,9 +28,10 @@
 }
 
 .lang-btn:hover {
-  border-color: var(--accent);
+  /*border-color: var(--accent);
   color: var(--accent);
-  background: white;
+  background: white;*/
+  background: #bebebeb2;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
 }

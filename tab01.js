@@ -99,7 +99,7 @@ function createTopRow() {
     function createBankName() {
     return el("label", { class: "bank-name" }, [
         el("span", { "data-i18n": "label.bank-name", text: t('label.bank-name') }),
-        el("input", { type: "text", id: "bankName", "data-i18n-placeholder": "label.bank-name", placeholder: t('label.bank-name') })
+        el("input", { type: "text", id: "bankName", "data-i18n-placeholder": "placeholder.bank-name", placeholder: t('placeholder.bank-name') })
     ]);
     }
     function createImportExportButtons() {
@@ -116,7 +116,7 @@ function createTopRow() {
 
 function createMainSection() {
     const createBerekenButton = () => {
-        return el('button', { id: 'berekenBtn1', class: 'bereken-btn', text: t('button.calculate') });
+        return el('button', { id: 'berekenBtn1', class: 'bereken-btn', "data-i18n": "button.calculate", text: t('button.calculate') });
     }
     return el("section", { class: "no-print" }, [
         createInputFieldset(),
