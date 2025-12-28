@@ -1,9 +1,10 @@
 import { $, el, createHeader, fmtCurrency, fmtDate } from './main.js';
 import { parseInputs, monthlyRate, computePayment, updateSummary } from './tab01.js';
+import { t } from './i18n.js';
 
 export function createTab03() {
     $('#tab03').append(
-        createHeader('LENING - AFLOSSINGSTABEL'),
+        createHeader(t('header.amortization')),
         createTable()
     );
     
@@ -81,22 +82,22 @@ function createTable() {
             class: "lening-overzicht on-print",
         }),
         el("div", { class: "button-group no-print" }, [
-            el("button", {id: "aflossingBtn", class: "bereken-btn no-print", text: "Aflossingstabel"}),
-            el("button", {id: "afdrukken", class: "bereken-btn no-print", text: "Afdrukken"})
+            el("button", {id: "aflossingBtn", class: "bereken-btn no-print", text: t('button.amortization-table')}),
+            el("button", {id: "afdrukken", class: "bereken-btn no-print", text: t('button.print')})
         ]),
         el("table", { id: "aflossingstabel" }, [
             el("thead", { id: "tableHeader", class: "table-header", html: `
                 <tr>
-                    <th>No</th>
-                    <th>Datum</th>
-                    <th>Begin kapitaal</th>
-                    <th>Aflossing totaal</th>
-                    <th>Aflossing kapitaal</th>
-                    <th>Aflossing rente</th>
-                    <th>Uitstaand kapitaal</th>
-                    <th>Cumulatieve interesten</th>
-                    <th>Cumulatief afbetaald KPT</th>
-                    <th>Cumulatif aflossing</th>
+                    <th>${t('table.no')}</th>
+                    <th>${t('table.date')}</th>
+                    <th>${t('table.begin-capital')}</th>
+                    <th>${t('table.total-payment')}</th>
+                    <th>${t('table.principal')}</th>
+                    <th>${t('table.interest')}</th>
+                    <th>${t('table.outstanding')}</th>
+                    <th>${t('table.cumulative-interest')}</th>
+                    <th>${t('table.cumulative-principal')}</th>
+                    <th>${t('table.cumulative-payment')}</th>
                 </tr>
             `}),
             el("tbody", {
@@ -124,14 +125,14 @@ export function preparePrintOverview() {
         el.textContent = text;
         $("#leningOverzicht").appendChild(el);
     };
-    li("Te lenen bedrag: " + fmtCurrency.format(inputs.bedrag));
-    li("JKP: " + (inputs.jkp.toString().replace('.', ',') || "-") + " %");
-    li("Maandelijkse rentevoet: " + ($("#rente-1").textContent || "-"));
-    li("Maandelijkse aflossing: " + ($("#pmt-1").textContent || "-"));
-    li("Totaal interesten: " + ($("#interesten-1").textContent || "-"));
-    li("Periode: " + (inputs.periode || "-") + " maanden");
-    li("Startdatum: " + fmtDate(inputs.startDate));
-    li("Einddatum: " + ($('#eindDatumDisplay').textContent || "-"));
+    li(t('print.loan-amount') + " " + fmtCurrency.format(inputs.bedrag));
+    li(t('print.annual-rate') + " " + (inputs.jkp.toString().replace('.', ',') || "-") + " %");
+    li(t('print.monthly-rate') + " " + ($("#rente-1").textContent || "-"));
+    li(t('print.monthly-payment') + " " + ($("#pmt-1").textContent || "-"));
+    li(t('print.total-interest') + " " + ($("#interesten-1").textContent || "-"));
+    li(t('print.period') + " " + (inputs.periode || "-") + " " + t('label.months'));
+    li(t('print.start-date') + " " + fmtDate(inputs.startDate));
+    li(t('print.end-date') + " " + ($('#eindDatumDisplay').textContent || "-"));
 
     $("#leningOverzicht").hidden = false;
     $("#aflossingBtn").style.visibility = "visible";

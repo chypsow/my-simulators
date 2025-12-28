@@ -1,9 +1,10 @@
 import { $, el, formatLocalDate, createHeader, fmtCurrency, $all } from './main.js';
 import { parseInputs, computeRemaining, updateSummary, hasMonthYearChanged } from './tab01.js';
+import { t } from './i18n.js';
 
 export function createTab02() {
     $('#tab02').append(
-        createHeader('LENING - STATUS TUSSEN 2 DATUMS'),
+        createHeader(t('header.loan-status')),
         createCalculator()
     );
 
@@ -21,7 +22,7 @@ export function createTab02() {
 function calculteTotals() {
     const inputs = parseInputs();
     if (!inputs) {
-        alert('Ongeldige invoer. Controleer de leninggegevens.');
+        alert(t('message.invalid-input'));
         return;
     }
     const { bedrag, jkp, periode, renteType: type, startDate } = inputs;
@@ -30,7 +31,7 @@ function calculteTotals() {
     const datum1 = new Date(datum1Input);
     const datum2 = new Date(datum2Input);
     if (isNaN(datum1.getTime()) || isNaN(datum2.getTime())) {
-        alert('Gelieve geldige datums in te vullen.');
+        alert(t('message.valid-dates'));
         return;
     }
     // ensure datum1 en datum2 are between startDate and endDate of the loan
@@ -68,7 +69,7 @@ function calculteTotals() {
 
 function createCalculator() {
     const createBerekenButton = () => {
-        return el('button', { id: 'berekenBtn2', class: 'bereken-btn', text: 'Bereken' });
+        return el('button', { id: 'berekenBtn2', class: 'bereken-btn', text: t('button.calculate') });
     }
     return el('div', { class: 'calculator' }, [
         createOverzicht(),
@@ -80,33 +81,33 @@ function createCalculator() {
 
 function createOverzicht() {
     return el("div", { class: "overzicht" }, [
-        el('div', { class: 'overzicht-header', html: `<h2>Lening Overzicht</h2><span> Vandaag: ${new Date().toLocaleDateString('nl-BE')}</span>` }),
+        el('div', { class: 'overzicht-header', html: `<h2>${t('section.loan-overview')}</h2><span> ${t('label.today')} ${new Date().toLocaleDateString('nl-BE')}</span>` }),
         el('div', { class: 'overzicht-inhoud' }, [
             el("div", { html: `
-                <p> Lening bedrag:
+                <p> ${t('output.loan-amount')}
                     <span id="bedrag-2" class="output-tab01"></span>
                 </p>
-                <p> Maandelijkse betaling:
+                <p> ${t('output.monthly-payment')}
                     <span id="pmt-2" class="output-tab01"></span>
                 </p>
-                <p> Maandelijkse rentevoet:
+                <p> ${t('output.monthly-rate')}
                     <span id="rente-2" class="output-tab01"></span>
                 </p>
-                <p> Totaal te betalen interesten:
+                <p> ${t('output.total-interest')}
                     <span id="interesten-2" class="output-tab01"></span>
                 </p>
             `}),
             el("div", { html: `
-                <p> Startdatum lening:
+                <p> ${t('label.start-date')}
                     <span id="startDatumDisplay" class="output-tab01"></span>
                 </p>
-                <p> Einddatum lening:
+                <p> ${t('label.end-date')}
                     <span id="eindDatumDisplay" class="output-tab01"></span>
                 </p>
-                <p> Lening periode:
+                <p> ${t('output.loan-period')}
                     <span id="periodeJaar-2" class="output-tab01"></span>
                 </p>
-                <p> Resterende looptijd:
+                <p> ${t('output.remaining-duration')}
                     <span id="resterendeLooptijd-2" class="output-tab01"></span>
                 </p>
             `})
@@ -117,15 +118,15 @@ function createOverzicht() {
 function createInputSectie() {
     return el('div', { class: 'input-sectie' }, [
         el('div', { class: 'uitleg-sectie' }, [
-            el('p', { class: 'uitleg-tekst', text: 'Bereken het afbetaalde kapitaal en de betaalde rente tussen twee datums op basis van de ingevoerde leninggegevens.' }),
-            el('p', { class: 'uitleg-tekst', html: `De berekening is gebaseerd op de ingevoerde leninggegevens in de <strong>Lening Calculator 1</strong> sectie.` })
+            el('p', { class: 'uitleg-tekst', text: t('section.explanation') }),
+            el('p', { class: 'uitleg-tekst', html: `${t('section.explanation-ref')}` })
         ]),
         el('div', { class: 'datum-sectie' }, [
             el('div', { class: 'start-datum-sectie' }, [
-                el('h2', { text: 'Datum 1 :', class: 'kies-datum' }),
+                el('h2', { text: t('label.date1'), class: 'kies-datum' }),
                 el('input', { type: 'date', id:'startdatum-status', class: 'datum-status' })]),
             el('div', { class: 'eind-datum-sectie' }, [
-                el('h2', { text: 'Datum 2 :', class: 'kies-datum' }),
+                el('h2', { text: t('label.date2'), class: 'kies-datum' }),
                 el('input', { type: 'date', id:'einddatum-status', class: 'datum-status' }),
             ]),
         ]),
@@ -136,7 +137,7 @@ function createOutputSectie() {
     return el('div', { class: 'output-sectie' }, [
         el('div', { class: 'kapitaal-groep' , html:`
             <div class="sectie-header">
-                <p> Afbetaald kapitaal: 
+                <p> ${t('output.paid-capital')} 
                     <span id="totaal-kapitaal" class="output-tab02"></span>
                 </p>
             </div>
@@ -144,7 +145,7 @@ function createOutputSectie() {
         }),
         el('div', { class: 'rente-groep' , html:`
             <div class="sectie-header">
-                <p> Afbetaalde Rente: 
+                <p> ${t('output.paid-interest')} 
                     <span id="totaal-rente" class="output-tab02"></span>
                 </p>
             </div>
@@ -153,7 +154,7 @@ function createOutputSectie() {
         el('hr' , { class: 'output-sectie-separator' }),
         el('div', { class: 'totaal-groep' , html:`
             <div class="sectie-header">
-                <p> Totaal Afbetaald:
+                <p> ${t('output.total-paid')}
                     <span id="totaal-afbetaald" class="output-tab02"></span>
                 </p>
             </div>

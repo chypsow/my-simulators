@@ -2,6 +2,7 @@
 import { createTab01 } from './tab01.js';
 import { createTab02 } from './tab02.js';
 import { createTab03, preparePrintOverview } from './tab03.js';
+import { initLangSwitcher, t } from './i18n.js';
 
 export let activePage = localStorage.getItem('activePage') ? parseInt(localStorage.getItem('activePage')) : 0;
 export const $ = selector => document.querySelector(selector);
@@ -49,9 +50,9 @@ function createCircles() {
 };
 function createTopHeader() {
     const header = $('#topHeader');
-    const tabArray = ['LENING CALCULATOR 1', 'LENING CALCULATOR 2', 'AFLOSSINGSTABEL'];
+    const tabLabels = [t('tab.calculator1'), t('tab.calculator2'), t('tab.amortization')];
     header.setAttribute('role', 'tablist');
-    tabArray.forEach((tab, i) => {
+    tabLabels.forEach((tab, i) => {
         const hyperlink = document.createElement('a');
         hyperlink.href = '#';
         hyperlink.textContent = tab;
@@ -85,13 +86,38 @@ export function renderTab(tabNumber) {
     });
 }
 
+function reRenderTabs() {
+    // Clear all tabs
+    $('div#tab01').innerHTML = '';
+    $('div#tab02').innerHTML = '';
+    $('div#tab03').innerHTML = '';
+    
+    // Re-create tabs with new language
+    createTab01();
+    createTab02();
+    createTab03();
+    
+    // Re-render current tab
+    renderTab(activePage + 1);
+}
+
 /* Initialize */
 document.addEventListener("DOMContentLoaded", () => {
+    initLangSwitcher();
     createCircles();
     createTopHeader();
     createTab01();
     createTab02();
     createTab03();
-    renderTab(activePage + 1);
-});
 
+    renderTab(activePage + 1);
+    
+    // Listen for language changes and re-render tabs
+    window.addEventListener('languageChanged', (e) => {
+        // Update top header tabs
+        $('#topHeader').innerHTML = '';
+        createTopHeader();
+        // Re-render all tabs with new language
+        reRenderTabs();
+    });
+});
