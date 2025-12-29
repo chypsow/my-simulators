@@ -1,7 +1,7 @@
 /* Language Switcher Styles */
 .lang-switch {
   position: fixed;
-  top: 12px;
+  top: 8px;
   display: flex;
   gap: 10px;
   z-index: 1001;

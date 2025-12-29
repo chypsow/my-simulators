@@ -72,7 +72,7 @@ h1{
     font-size: 1.1rem;
     font-weight: bold;
     display: block;
-    padding: 1rem;
+    padding: .8rem 1rem;
     /*line-height: var(--ht-top-header);*/
     color: rgba(255, 255, 255, 0.521);
     text-decoration: none;

@@ -170,7 +170,7 @@ input , select{
     color:#ffffff; 
     /*outline:none;*/
 }
-.rente-type{
+.rente-type, .periode-eenheid{ 
     padding:.35rem .5rem;
     border-radius:4px;
     border:1px solid rgba(139, 139, 139, 0.3);
@@ -189,7 +189,7 @@ input , select{
 }*/
 
 /* Opties in dropdown (ondersteuning kan verschillen per browser) */
-.rente-type option {
+.rente-type option, .periode-eenheid option {
     background-color: #d1d1d1; /* dropdown items achtergrond */
     color: #000000; 
 }

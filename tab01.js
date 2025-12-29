@@ -16,7 +16,13 @@ export function createTab01() {
             // Update end date preview
             const startDate = $("#startDatum").valueAsDate;
             if (startDate) {
-                const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + parseInt(inp.value || "0", 10), startDate.getDate());
+                const periode = parseInt($("#periode").value || "0", 10);
+                const periodeEenheid = $("#periodeEenheid").value;
+                let adjustedPeriode = periode;
+                if (periodeEenheid === "years") {
+                    adjustedPeriode = periode * 12;
+                }
+                const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + adjustedPeriode, startDate.getDate());
                 $("#eindDatum").textContent = fmtDate(endDate);
                 $("#eindDatum").setAttribute("data-prev-date", fmtDate(endDate));
                 $("#eindDatum-container").classList.remove("eind-datum-hidden");
@@ -31,6 +37,24 @@ export function createTab01() {
     }));
 
     $("#renteType").addEventListener("change", () => {
+        resetOutputs();
+    });
+
+    $("#periodeEenheid").addEventListener("change", () => {
+        // Update end date preview
+        const startDate = $("#startDatum").valueAsDate;
+        if (startDate) {
+            const periode = parseInt($("#periode").value || "0", 10);
+            const periodeEenheid = $("#periodeEenheid").value;
+            let adjustedPeriode = periode;
+            if (periodeEenheid === "years") {
+                adjustedPeriode = periode * 12;
+            }
+            const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + adjustedPeriode, startDate.getDate());
+            $("#eindDatum").textContent = fmtDate(endDate);
+            $("#eindDatum").setAttribute("data-prev-date", fmtDate(endDate));
+            $("#eindDatum-container").classList.remove("eind-datum-hidden");
+        }
         resetOutputs();
     });
 
@@ -143,9 +167,16 @@ function createInputFieldset() {
         `});
     };
     const periodeInput = () => {
-        return el("label", {
-            html: `<span data-i18n="label.period-months">${t('label.period-months')}</span> <input type="text" id="periode" class="invoer">`
-        });
+        return el("div", { class: "label-select", html: `
+            <label>
+                <span data-i18n="label.loan-period">${t('label.loan-period')}</span> <input type="text" id="periode" class="invoer">
+            </label>
+            <select id="periodeEenheid" class="periode-eenheid">
+                <option value="months" data-i18n="label.period-unit.months">${t('label.period-unit.months')}</option>
+                <option value="years" data-i18n="label.period-unit.years">${t('label.period-unit.years')}</option>
+            </select>
+
+        `})
     };
     const datums = () => {
         return el("div", { class: "datums" }, [
@@ -231,7 +262,7 @@ export function updateSummary() {
         resetOutputs();
         return;
     }
-    const { bedrag, jkp, periode, renteType: type, startDate } = inputs;
+    const { bedrag, jkp, periode, type, startDate } = inputs;
     const i = monthlyRate(jkp, type);
     const betaling = computePayment(bedrag, i, periode);
     $('#bedrag-1').textContent = fmtCurrency.format(bedrag);
@@ -318,14 +349,20 @@ export function computeRemaining(bedrag, jkp, periode, type, startDate, currentD
 export function parseInputs() {
     const bedrag = parseFloat($("#teLenenBedrag").value.replace(',', '.'));
     const jkp = parseFloat($("#jkp").value.replace(',', '.'));
-    const periode = parseInt($("#periode").value.replace(',', '.'), 10);
+    const renteType = $("#renteType").value;
+    const periode = parseInt($("#periode").value, 10);
+    const periodeEenheid = $("#periodeEenheid").value;
+    let adjustedPeriode = periode;
+    if (periodeEenheid === "years") {
+        adjustedPeriode = periode * 12;
+    }
     const startdatumValue = $("#startDatum").value;
     const startDate = new Date(startdatumValue);
-    const renteType = $("#renteType");
+    
     if (!isFinite(bedrag) || !isFinite(jkp) || !isFinite(periode) || periode <= 0 || isNaN(startDate.getTime())) {
         return null;
     }
-    return { bedrag, jkp, periode, renteType: renteType.value, startDate };
+    return { bedrag, jkp, periode: adjustedPeriode, renteType, startDate };
 }
 
 function resetOutputs() {
@@ -366,17 +403,22 @@ function importData() {
         let reader = new FileReader();
         reader.onload = event => {
             let data = JSON.parse(event.target.result);
-            // Populate fields
-            $("#bankName").value = data.bank || "";
-            $("#teLenenBedrag").value = data.bedrag || "";
-            $("#jkp").value = data.jkp ? fmtDecimal(4).format(data.jkp) : "";
-            $("#periode").value = data.periode || "";
-            $("#renteType").value = data.renteType || "1";
-            if (data.startDatum) {
-                const dateStr = data.startDatum.includes('-') ? data.startDatum : data.startDatum.split('/').reverse().join('-');
+            // Populate fields - support both old and new naming conventions
+            $("#bankName").value = data["bank-name"] || data.bank || "";
+            $("#teLenenBedrag").value = data["loan-amount"] || data.bedrag || "";
+            $("#jkp").value = (data["annual-rate"] || data.jkp) ? fmtDecimal(4).format(data["annual-rate"] || data.jkp) : "";
+            $("#renteType").value = data["rate-type"] || data.renteType || "1";
+            $("#periode").value = data.period || data.periode || "";
+            $("#periodeEenheid").value = data["period-unit"] || data.periodeEenheid || "months";
+            if (data["start-date"] || data.startDatum) {
+                const dateStr = (data["start-date"] || data.startDatum).includes('-') ? (data["start-date"] || data.startDatum) : (data["start-date"] || data.startDatum).split('/').reverse().join('-');
                 $("#startDatum").value = dateStr;
                 const startDate = new Date(dateStr);
-                const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + parseInt(data.periode || "0", 10), startDate.getDate());
+                let adjustedPeriode = parseInt(data.period || data.periode || "0", 10);
+                if ((data["period-unit"] || data.periodeEenheid) === "years") {
+                    adjustedPeriode = adjustedPeriode * 12;
+                }
+                const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + adjustedPeriode, startDate.getDate());
                 $("#eindDatum").textContent = fmtDate(endDate);
                 $("#eindDatum").setAttribute("data-prev-date", formatLocalDate(endDate));
                 $("#eindDatum-container").classList.remove("eind-datum-hidden");
@@ -398,17 +440,18 @@ function exportData() {
         return;
     }
     const data = {
-        bank: $("#bankName").value.toUpperCase() || "Bank",
-        bedrag: inputs.bedrag,
-        jkp: inputs.jkp,
-        periode: inputs.periode,
-        renteType: inputs.renteType,
-        startDatum: formatLocalDate(inputs.startDate)
+        "bank-name": $("#bankName").value.toUpperCase() || "Bank",
+        "loan-amount": inputs.bedrag,
+        "annual-rate": inputs.jkp,
+        "rate-type": inputs.renteType,
+        "period": inputs.periode,
+        "period-unit": $("#periodeEenheid").value,
+        "start-date": formatLocalDate(inputs.startDate)
     };
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
-    const filename = `${data.bank}_${data.bedrag/1000}k_${data.periode}m_${data.startDatum}.txt`;
+    const filename = `${data["bank-name"]}_${data["loan-amount"]/1000}k_${data["period"]}${data["period-unit"][0]}_${data["start-date"]}.txt`;
     downloadAnchorNode.setAttribute("download", filename);
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
