@@ -1,6 +1,6 @@
 import { $, $all, formatLocalDate, createHeader,  fmtCurrency, fmtDate, fmtDecimal, t } from './main.js';
-import { createTopRow, createMainSection } from './tab01_DOM.js';
-import { generateSchedule, createTable, printData, setTableVisibility } from './tab01_Table.js';
+import { createTopRow, createMainSection } from './tab01DOM.js';
+import { generateSchedule, createTable, printData, setTableVisibility } from './tab01Table.js';
 
 export function createTab01() {
     $('#tab01').append(
