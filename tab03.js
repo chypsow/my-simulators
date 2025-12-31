@@ -1,5 +1,5 @@
 import { $, el, createHeader, fmtCurrency, fmtDate, t } from './main.js';
-import { parseInputs, updateSummary, monthlyRate, computePayment } from './tab01_main.js';
+import { parseInputs, updateSummary, monthlyRate, computePayment } from './tab01.js';
 
 export function createTab03() {
     $('#tab03').append(

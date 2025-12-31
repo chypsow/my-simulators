@@ -1,5 +1,5 @@
 
-import { createTab01 } from './tab01_main.js';
+import { createTab01 } from './tab01.js';
 import { createTab02 } from './tab02.js';
 import { createTab03 } from './tab03.js';
 import { translations } from './i18n.js';
