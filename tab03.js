@@ -91,10 +91,10 @@ function createAnnualReportTable(inputs, interval, selectedColumns) {
     const table = el('table', { class: 'annual-report-table' });
     
     // Set custom property gebaseerd op interval
-    if (interval === 1) {
+    if (interval !== 1) {
         table.style.setProperty('--second-col-width', '10rem');
     }
-    
+
     // Create table header
     const thead = el('thead');
     const headerRow = el('tr');
