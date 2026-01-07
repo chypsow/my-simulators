@@ -191,28 +191,59 @@ function createLangSwitcher () {
 function createThemeSelector() {
     const container = el('div', { class: 'theme-selector no-print' });
     const themes = [
-        { id: 'theme-dark-cyan', color: 'rgb(0, 217, 255)' },
-        { id: 'theme-dark-rose', color: 'rgba(250, 208, 196, 1)' },
-        { id: 'theme-dark-purple', color: 'rgba(245, 245, 245, 1)' }
+        { id: 'theme-dark-cyan', color: 'rgba(0, 217, 255, 1)' },
+        { id: 'theme-dark-purple', color: 'rgba(114, 68, 199, 1)' },
+        { id: 'theme-dark-rose', color: 'rgba(250, 208, 196, 1)' }
     ];
     
     const currentTheme = localStorage.getItem('theme') || 'theme-dark-cyan';
     
     themes.forEach(theme => {
         const btn = el('button', { 
-            class: `theme-btn ${theme.id}${currentTheme === theme.id ? ' active' : ''}`,
+            class: 'theme-btn',
             'aria-label': `Select ${theme.id} theme`,
             'data-theme': theme.id
         });
         
+        // Set background color dynamically
+        btn.style.backgroundColor = theme.color;
+        
+        // Only show active theme initially, others hidden
+        if (currentTheme === theme.id) {
+            btn.classList.add('active', 'visible');
+        } else {
+            btn.classList.add('hidden');
+        }
+        
         btn.addEventListener('click', () => {
             setTheme(theme.id);
-            // Update active state
-            container.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            // Update visibility and active state
+            container.querySelectorAll('.theme-btn').forEach(b => {
+                b.classList.remove('active', 'visible');
+                b.classList.add('hidden');
+            });
+            btn.classList.remove('hidden');
+            btn.classList.add('active', 'visible');
         });
         
         container.appendChild(btn);
+    });
+    
+    // Add hover effect to show all buttons
+    container.addEventListener('mouseenter', () => {
+        container.querySelectorAll('.theme-btn').forEach(b => {
+            b.classList.remove('hidden');
+            b.classList.add('visible');
+        });
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        container.querySelectorAll('.theme-btn').forEach(b => {
+            if (!b.classList.contains('active')) {
+                b.classList.remove('visible');
+                b.classList.add('hidden');
+            }
+        });
     });
     
     return container;

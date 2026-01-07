@@ -216,6 +216,7 @@ h1{
     top: 60px;
     right: 8px;
     display: flex;
+    flex-direction: row-reverse;
     gap: 0.5rem;
     z-index: 1001;
 }
@@ -229,26 +230,31 @@ h1{
     transition: all 0.3s ease;
 }
 
+.theme-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-80px);
+}
+
+.theme-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
 .theme-btn:hover {
     transform: scale(1.1);
-    border-color: #888;
+    /*border-color: #888;*/
+}
+
+.theme-btn.visible:hover {
+    transform: scale(1.15);
+    /*border-color: #fff;*/
 }
 
 .theme-btn.active {
-    border-color: #fff;
+    /*border-color: #fff;*/
     box-shadow: 0 0 8px var(--accent);
-}
-.theme-btn.theme-dark-cyan {
-    background-color: rgb(0, 217, 255);
-}
-
-.theme-btn.theme-dark-rose {
-    background-color: rgb(250, 208, 196);
-}
-
-.theme-btn.theme-dark-purple {
-    background-color: #653ead;
-    /*border-color: #333;*/
 }
 
 /* Footer */
