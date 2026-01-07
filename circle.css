@@ -9,7 +9,7 @@
 .circle{
     position:absolute;
     border-radius:50%;
-    background:var(--glass);
+    background:var(--circle-bg);
     will-change:transform;
     opacity:.95;
 }
