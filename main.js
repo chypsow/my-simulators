@@ -193,7 +193,7 @@ function createThemeSelector() {
     const themes = [
         { id: 'theme-dark-cyan', color: 'rgb(0, 217, 255)' },
         { id: 'theme-dark-rose', color: 'rgba(250, 208, 196, 1)' },
-        { id: 'theme-light', color: 'rgba(245, 245, 245, 1)' }
+        { id: 'theme-dark-purple', color: 'rgba(245, 245, 245, 1)' }
     ];
     
     const currentTheme = localStorage.getItem('theme') || 'theme-dark-cyan';

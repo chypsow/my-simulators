@@ -20,6 +20,9 @@
     align-items: center;
     border-bottom: 1px solid rgba(221, 221, 221, 0.205);
 }
+.overzicht-header h2 {
+    color: var(--text-color);
+}
 .overzicht-header span {
     font-family: var(--font-mono);
     font-size: 0.9rem;
@@ -101,19 +104,26 @@
     gap: 1rem;
     justify-content: space-between;
     margin-top: 1rem;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1rem;
 }
-.sectie-header p{
+.output-groep {
+    display: flex;
+    width: 100%;
+}
+.output-groep p{
     margin: 0;
 }
-.sectie-header p span:first-child {
+.output-groep p span:first-child {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     font-size: 1rem;
     font-weight: bold;
     padding: .5rem 0;
-    /*color: var(--accent);*/
+    color: var(--text-color);
 }
-.sectie-header p span:nth-child(2) {
+.output-groep p span:nth-child(2) {
     font-family: var(--font-mono);
     font-size: 1rem;
     /*font-weight: bold;*/
@@ -124,20 +134,5 @@
     border: none;
     border-top: 1px dashed rgba(221, 221, 221, 0.5);
     margin: 0;
-}
-.output-sectie  {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    padding: 1rem;
-    
-}
-.kapitaal-groep, .rente-groep, .totaal-groep {
-    display: flex;
-    width: 100%;
-    /*flex-direction: column;
-    gap: 1.5rem;*/
-    /*padding: 1rem;
-    
-    border-radius: var(--radius);*/
 }
 

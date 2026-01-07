@@ -18,6 +18,7 @@
     margin: 0;
     font-family: var(--font-sans);
     font-size: 1.4rem;
+    color: var(--text-color);
 }
 .config-container .instruction-text {
     margin: 0;

@@ -136,29 +136,29 @@ function createInputSectie() {
 
 function createOutputSectie() {
     return el('div', { class: 'output-sectie' }, [
-        el('div', { class: 'kapitaal-groep' , html:`
-            <div class="sectie-header">
+        el('div', { class: 'output-groep' , html:`
+            
                 <p> <span data-i18n="output.paid-capital">${t('output.paid-capital')}</span> 
                     <span id="totaal-kapitaal" class="output-tab02"></span>
                 </p>
-            </div>
+            
             `
         }),
-        el('div', { class: 'rente-groep' , html:`
-            <div class="sectie-header">
+        el('div', { class: 'output-groep' , html:`
+            
                 <p> <span data-i18n="output.paid-interest">${t('output.paid-interest')}</span> 
                     <span id="totaal-rente" class="output-tab02"></span>
                 </p>
-            </div>
+           
             `
         }),
         el('hr' , { class: 'output-sectie-separator' }),
-        el('div', { class: 'totaal-groep' , html:`
-            <div class="sectie-header">
+        el('div', { class: 'output-groep' , html:`
+            
                 <p> <span data-i18n="output.total-paid">${t('output.total-paid')}</span>
                     <span id="totaal-afbetaald" class="output-tab02"></span>
                 </p>
-            </div>
+           
             `
         }),
 
