@@ -3,6 +3,9 @@
     section{ flex-direction:column; gap:1rem; }
     fieldset{ width:100%; }
     footer { display: none; }
+    :root { --ht-top-header: 2.9rem; }
+    .top-header a { font-size: .9rem; }
+    .lang-select { top: var(--ht-top-header); }
     .simulator, .calculator, .generator, .invoice-content{ width:85%; }
     .table-header th, .table-inhoud td{ font-size:.85rem; white-space:nowrap; }
     .circles-wrapper{ width:120px; height:120px; }
@@ -11,8 +14,6 @@
 @media (max-width:950px){
     header, footer{ flex-direction:column; align-items:center; gap:.5rem; }
     header h1{ font-size: 2rem;}
-    :root { --ht-top-header: 2.8rem; }
-    .top-header a { font-size: .9rem; }
     .annual-report-table thead { top: 2.7rem; }
     .table-header th, .table-inhoud td{ font-size:.75rem; }
     .summary-output{ flex-direction:column; }
@@ -22,21 +23,20 @@
     .top-row{ flex-direction:column; align-items:flex-start; gap:1.5rem; }
     .country-list{ right: 0;}
     .sectie-wrapper { flex-direction: column; align-items: center; }
-    .kapitaal-groep, .rente-groep { width: 100%; }
     .checkbox-group { width: 100%; }
     .invoice-content{ width:98%; padding:.5rem; }
     .meter-sections{ flex-direction:column; gap:1rem; }
 }
-@media (max-width:650px){
+@media (max-width:750px){
     header h1{ font-size: 1.5rem; }
     label{ font-size:.65rem; }
     .interval-input-container label{ font-size: .9rem;}
-    :root { --ht-top-header: 10.75rem; }
+    :root { --ht-top-header: 11rem; --radius-wrapper: 0px; }
     .theme-btn-popup{ width: 20px; height: 20px; }
     .theme-popup{ gap: .75rem; padding-top: .7rem;}
     .table-header th, .table-inhoud td{ font-size:.65rem; }
-    .calculator, .generator{ width:98%; padding:.5rem; }
-    .simulator{ width:98%; padding:.5rem .5rem 0 .5rem; }
+    .calculator, .generator, .invoice-content{ width:100%; padding:.5rem; }
+    .simulator{ width:100%; padding:.5rem .5rem 0 .5rem; }
     .top-header {flex-direction: column; gap:0; }
     .top-header a { text-align: center; padding: .75rem; }
     .annual-report-table thead { top: 7.7rem; }
