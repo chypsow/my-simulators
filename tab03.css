@@ -161,7 +161,7 @@
     background-color: var(--table-tr-hover);
 }
 
-.annual-report-table td:first-child, .annual-report-table td:nth-child(2) {
+.annual-report-table td:first-child {
     font-weight: 500;
     /*text-align: right;*/
     color: #8d8d8d;
