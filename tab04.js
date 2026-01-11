@@ -7,6 +7,34 @@ export function createTab04() {
     
     const content = el('div', { class: 'invoice-content' });
 
+    // Billing period input + results section
+    const resultsSection = el('div', { class: 'results-section' });
+    const billingPeriodContainer = el('div', { class: 'billing-period-container' });
+    resultsSection.appendChild(billingPeriodContainer);
+    const billingPeriodSelect = el('select', { class: 'billing-period-select', id: 'billingPeriodSelect' }, [
+        el('option', { value: 'months', text: t('invoice.number-of-months'), 'data-i18n': 'invoice.number-of-months' }),
+        el('option', { value: 'dates', text: t('invoice.start-end-dates'), 'data-i18n': 'invoice.start-end-dates' })
+    ]);
+    billingPeriodContainer.appendChild(billingPeriodSelect);
+    const billingPeriodGroup = el('div', { class: 'billing-period-group' });
+    billingPeriodContainer.appendChild(billingPeriodGroup);
+   
+    
+    // Grand total display
+    
+    const grandTotalDiv = el('div', { class: 'result-item grand-total' });
+    grandTotalDiv.appendChild(el('span', {
+        'data-i18n': 'invoice.grand-total',
+        text: t('invoice.grand-total')
+    }));
+    const grandTotalValue = el('span', {
+        id: 'grandTotalValue',
+        text: createFmtCurrency('TND').format(0)
+    });
+    grandTotalDiv.appendChild(grandTotalValue);
+    resultsSection.appendChild(grandTotalDiv);
+    content.appendChild(resultsSection);
+    
     // 2 sections: Electricity and Gas
     const meterSectionsDiv = el('div', { class: 'meter-sections' });
     content.appendChild(meterSectionsDiv);
@@ -38,7 +66,7 @@ export function createTab04() {
             'data-i18n': 'invoice.cl-rtt-fte',
             text: 'CL + RTT + FTE:'}),
         el('span', {
-            text: '0,00 DT', 
+            text: '0,00 DT',
             class: 'tax-item-fte' }),
     ]));
     taxSection.appendChild(el('div', { class: 'result-row'}, [
@@ -51,35 +79,7 @@ export function createTab04() {
         ]));
     content.appendChild(taxSection);
 
-    // Billing period input + results section
-    const resultsSection = el('div', { class: 'results-section' });
-    const billingPeriodGroup = el('div', { class: 'input-group teller' });
-    billingPeriodGroup.appendChild(el('label', {
-        'data-i18n': 'invoice.billing-period',
-        text: t('invoice.billing-period')
-    }));
-    const billingPeriodInput = el('input', {
-        type: 'number',
-        id: 'billingPeriod',
-        value: '4',
-        min: '1',
-        step: '1'
-    });
-    billingPeriodGroup.appendChild(billingPeriodInput);
-    resultsSection.appendChild(billingPeriodGroup);
     
-    const grandTotalDiv = el('div', { class: 'result-item grand-total' });
-    grandTotalDiv.appendChild(el('span', {
-        'data-i18n': 'invoice.grand-total',
-        text: t('invoice.grand-total')
-    }));
-    const grandTotalValue = el('span', {
-        id: 'grandTotalValue',
-        text: createFmtCurrency('TND').format(0)
-    });
-    grandTotalDiv.appendChild(grandTotalValue);
-    resultsSection.appendChild(grandTotalDiv);
-    content.appendChild(resultsSection);
     
     // Export button
     const exportButton = el('button', {
@@ -93,7 +93,7 @@ export function createTab04() {
     $('main').appendChild(tab04);
     
     // Auto-calculate on input change
-    billingPeriodInput.addEventListener('change', () => calculateInvoice(tab04));
+    //billingPeriodInput.addEventListener('change', () => calculateInvoice(tab04));
     tab04.querySelectorAll('input[type="number"]').forEach(input => {
         input.addEventListener('change', () => calculateInvoice(tab04));
     });
@@ -124,6 +124,64 @@ export function createTab04() {
             input.replaceWith(newSpan);
             calculateInvoice(tab04);
         });
+    });
+
+    // Billing period input
+    const billingPeriodInput = () => {
+        const input =  el('input', {
+        type: 'number',
+        id: 'billingPeriod',
+        value: '1',
+        min: '1',
+        class: 'billing-period-input'
+        });
+        input.addEventListener('change', () => calculateInvoice(tab04));
+        return input;
+    };
+    const billingPeriodDatesGroup = () => {
+        const datums = el('div', { class: 'billing-period-dates-group' }, [
+        el('label', { html: `<span data-i18n="print.start-date">${t('print.start-date')}</span> <input type="date" id="billingStartDate" class="billing-date-input">` }),
+        el('label', { html: `<span data-i18n="print.end-date">${t('print.end-date')}</span> <input type="date" id="billingEndDate" class="billing-date-input">` })
+        ]);
+        datums.querySelectorAll('input').forEach(input => {
+            input.addEventListener('change', () => updateBillingPeriodFromDates());
+        });
+        return datums;
+    };
+
+    // handle dates change
+    function updateBillingPeriodFromDates() {
+        const billingStartDateInput = tab04.querySelector('#billingStartDate');
+        const billingEndDateInput = tab04.querySelector('#billingEndDate');
+        const startDate = new Date(billingStartDateInput.value);
+        const endDate = new Date(billingEndDateInput.value);
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
+            console.log('Invalid dates for billing period - 1');
+            return;
+        }
+        calculateInvoice(tab04);
+    }
+
+    const savedBillingPeriodType = localStorage.getItem('invoiceBillingPeriodType') || 'months';
+    billingPeriodSelect.value = savedBillingPeriodType;
+    if (savedBillingPeriodType === 'months') {
+        billingPeriodGroup.appendChild(billingPeriodInput());
+    } else {
+        billingPeriodGroup.appendChild(billingPeriodDatesGroup());
+    }
+
+    // select change for billing period type
+    billingPeriodSelect.addEventListener('change', () => {
+        const billingPeriodGroup = tab04.querySelector('.billing-period-group');
+        billingPeriodGroup.innerHTML = '';
+        if (billingPeriodSelect.value === 'months') {
+            billingPeriodGroup.appendChild(billingPeriodInput());
+            localStorage.setItem('invoiceBillingPeriodType', 'months');
+        } else {
+            billingPeriodGroup.appendChild(billingPeriodDatesGroup());
+            localStorage.setItem('invoiceBillingPeriodType', 'dates');
+        }
+        calculateInvoice(tab04);
     });
 }
 
@@ -209,7 +267,26 @@ function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFi
 }
 
 export function calculateInvoice(tab04Container) {
-    const billingPeriod = parseFloat($('#billingPeriod').value) || 1;
+    // Get billing period
+    let billingPeriodValue = 0;
+    const billingPeriod = tab04Container.querySelector('#billingPeriod');
+    if (!billingPeriod) {
+        // get from dates
+        const startDateInput = tab04Container.querySelector('#billingStartDate');
+        const endDateInput = tab04Container.querySelector('#billingEndDate');
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
+            console.log('Invalid dates for billing period - 2');
+            return;
+        }
+        const diffTime = Math.abs(endDate - startDate);
+        const diffMonths = Math.round(diffTime / (1000 * 60 * 60 * 24 * 30.44));
+        billingPeriodValue = diffMonths;
+    } else {
+        billingPeriodValue = parseFloat(billingPeriod.value) || 1;
+    }
+    console.log({billingPeriodValue});
     
     // Electricity calculations
     const elecSection = tab04Container.querySelector('.meter-electricity');
@@ -233,12 +310,12 @@ export function calculateInvoice(tab04Container) {
     
     // Electricity calculations
     const elecTotalHT = (elecConsumption * elecPrice);
-    const elecFixed = elecFixedCosts * billingPeriod;
+    const elecFixed = elecFixedCosts * billingPeriodValue;
     const elecTVAAmount = elecTotalHT * (elecTVAPercent / 100) + (elecFixed * (gasTVAPercent / 100));
     
     // Gas calculations
     const gasTotalHT = (gasConsumption * gasPrice);
-    const gasFixed = gasFixedCosts * billingPeriod;
+    const gasFixed = gasFixedCosts * billingPeriodValue;
     const gasTVAAmount = (gasTotalHT + gasFixed) * (gasTVAPercent / 100);
     
     // Totals

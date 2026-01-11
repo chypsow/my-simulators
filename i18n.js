@@ -124,6 +124,8 @@ export const translations = {
     "invoice.taxes": "Total taxes",
     "invoice.tax-totals": "TOTAL TAX AMOUNTS:",
     "invoice.tax-info": "VAT electricity + gas:",
+    "invoice.number-of-months": "Number of months",
+    "invoice.start-end-dates": "Start and end dates"
   },
 
   fr: {
@@ -230,7 +232,7 @@ export const translations = {
     "print.end-date": "Date de fin:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Durée de facturation (mois):",
+    "invoice.billing-period": "Periode de facturation (mois):",
     "invoice.electricity": "Électricité - Compteur (kWh)",
     "invoice.gas": "Gaz - Compteur (m³)",
     "invoice.old-reading": "Ancien relevé:",
@@ -249,7 +251,9 @@ export const translations = {
     "invoice.grand-total": "MONTANT TOTAL A PAYER:",
     "invoice.taxes": "Taxes totales",
     "invoice.tax-totals": "TOTAL TAXES:",
-    "invoice.tax-info": "TVA électricité + gaz:"
+    "invoice.tax-info": "TVA électricité + gaz:",
+    "invoice.number-of-months": "Nombre de mois",
+    "invoice.start-end-dates": "Dates de début et de fin"
   },
 
   nl: {
@@ -375,6 +379,8 @@ export const translations = {
     "invoice.grand-total": "Totaal te betalen bedrag:",
     "invoice.taxes": "Totale taxen",
     "invoice.tax-totals": "TOTALE TAXEN:",
-    "invoice.tax-info": "BTW elektriciteit + gas:"
+    "invoice.tax-info": "BTW elektriciteit + gas:",
+    "invoice.number-of-months": "Aantal maanden",
+    "invoice.start-end-dates": "Begin- en einddatums"
   }
 };
