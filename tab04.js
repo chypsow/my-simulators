@@ -159,10 +159,16 @@ export function createTab04() {
         return input;
     };
     const createBillingPeriodDatesGroup = () => {
+        const savedStartDate = localStorage.getItem('invoiceBillingStartDate') || '';
+        const savedEndDate = localStorage.getItem('invoiceBillingEndDate') || '';
         const datums = el('div', { class: 'billing-period-dates-group' }, [
         el('label', { html: `<span data-i18n="print.start-date">${t('print.start-date')}</span> <input type="date" id="billingStartDate" class="billing-date-input">` }),
         el('label', { html: `<span data-i18n="print.end-date">${t('print.end-date')}</span> <input type="date" id="billingEndDate" class="billing-date-input">` })
         ]);
+        const billingStartDateInput = datums.querySelector('#billingStartDate');
+        const billingEndDateInput = datums.querySelector('#billingEndDate');
+        billingStartDateInput.value = savedStartDate;
+        billingEndDateInput.value = savedEndDate;
         datums.querySelectorAll('input').forEach(input => {
             input.addEventListener('change', () => updateBillingPeriodFromDates());
         });
@@ -177,8 +183,11 @@ export function createTab04() {
         const endDate = new Date(billingEndDateInput.value);
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
             console.log('Invalid dates for billing period - 1');
+            resetResultsInvoice(tab04);
             return;
         }
+        localStorage.setItem('invoiceBillingStartDate', billingStartDateInput.value);
+        localStorage.setItem('invoiceBillingEndDate', billingEndDateInput.value);
         calculateInvoice(tab04);
     }
 
@@ -203,6 +212,20 @@ export function createTab04() {
         }
         calculateInvoice(tab04);
     });
+}
+
+function resetResultsInvoice(tab04Container) {
+    // Reset all result fields to 0
+    tab04Container.querySelectorAll('.consumption-electricity, .consumption-gas').forEach(span => {
+        span.textContent = '0 kWh';
+    });
+    tab04Container.querySelectorAll('.total-hf-electricity, .total-hf-gas, .fixed-electricity, .fixed-gas, .total-ht-electricity, .total-ht-gas, .tva-amount-electricity, .tva-amount-gas').forEach(span => {
+        span.textContent = '0,00 DT';
+    });
+    tab04Container.querySelectorAll('.tax-item-tva, .tax-item-fte, .tax-item-total').forEach(span => {
+        span.textContent = '0,00 DT';
+    });
+    tab04Container.querySelector('#grandTotalValue').textContent = createFmtCurrency('TND').format(0);
 }
 
 function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFixed) {
