@@ -1,5 +1,6 @@
 /* Tab04 - Invoice Calculator */
 .invoice-content {
+    /*height: 100vh;*/
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -22,7 +23,7 @@
     justify-content: space-between;
     gap: 20px;
     flex-wrap: wrap;
-    min-height: 8rem;
+    /*min-height: 8rem;*/
     /*padding-left: 1rem;*/
 }
 .results-section .input-group {
@@ -33,15 +34,41 @@
 }
 .results-section .input-group label {
     color: var(--text-color);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 .billing-period-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: last baseline;
-    gap: 1.5rem;
+    /*align-items: last baseline;*/
+    gap: .5rem;
     min-height: 6rem;
+}
+.billing-period-container h3 {
+    margin: 0;
+    color: var(--accent-plus);
+    font-size: 1.3rem;
+    padding-bottom: 8px;
+}
+.billing-period-select {
+    width: 15rem;
+    padding: .5rem;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-color);
+    background-color: var(--input-bg);
+    font-family: var(--font-sans);
+}
+.billing-period-group input {
+    padding: .5rem;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-color);
+    background-color: var(--input-bg);
+    font-family: var(--font-sans);
 }
 .billing-period-dates-group {
     display: flex;
@@ -53,9 +80,28 @@
     display: flex;
     flex-direction: column;
     color: var(--label-color);
-    font-size: .9rem;
+    font-size: 1rem;
     gap: .5rem;
 }
+.result-item {
+    flex: 1 1 30%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    /*align-items: end;*/
+    padding: 12px 15px;
+    /*background: var(--card-bg);
+    border: 1px solid var(--border);*/
+    border-radius: 4px;
+}
+
+.result-item span {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--accent-plus);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 /* Input Groups */
 .input-group {
     display: flex;
@@ -69,6 +115,20 @@
     gap: 1rem;
     padding: .5rem;
 }
+.input-group.inline span.editable-label {
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.6rem;
+    margin-left: 0.5rem;
+}
+.input-group.inline input{
+    padding: .4rem;
+    font-size: 1rem;
+    font-family: var(--font-mono);
+    width: 6rem;
+}
 .input-group.teller input{
     font-size: 1.2rem;
     background-color: var(--input-bg);
@@ -78,10 +138,10 @@
 
 .input-group label, .input-group span {
     color: var(--label-color);
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 .input-group span {
-    font-size: 1.2rem;
+    /*font-size: 1.2rem;*/
     font-weight: 600;
     /*color: var(--accent);*/
 }
@@ -107,12 +167,20 @@
 }
 /* Invoice Sections */
 .invoice-section {
-    flex: 1 1 45%;
+    flex: 1 1 30%;
     background: var(--card-bg);
     /*border-left: 4px solid var(--accent);*/
     padding: 1rem;
     /*margin: 1.25rem 0;*/
     border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+}
+.tax-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1;
 }
 
 .invoice-section h3 {
@@ -146,7 +214,7 @@
     border-bottom: 1px solid var(--border);
     border-radius: 4px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .result-row:last-child {
@@ -163,28 +231,7 @@
     color: var(--accent-plus);
 }
 
-/* Results Section */
-.result-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-}
 
-.result-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    align-items: end;
-    padding: 12px 15px;
-    /*background: var(--card-bg);
-    border: 1px solid var(--border);*/
-    border-radius: 4px;
-}
 
-.result-item span {
-    font-weight: 500;
-    font-size: 1.2rem;
-    color: var(--accent-plus);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+
 

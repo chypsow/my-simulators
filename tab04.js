@@ -2,8 +2,8 @@ import { $, el, createHeader, createFmtCurrency, t } from './main.js';
 
 export function createTab04() {
     const tab04 = el('div', { id: 'tab04' });
-    //const header = createHeader('header.invoice-calculator');
-    //tab04.appendChild(header);
+    const header = createHeader('header.invoice-calculator');
+    tab04.appendChild(header);
     
     const content = el('div', { class: 'invoice-content' });
 
@@ -11,6 +11,10 @@ export function createTab04() {
     const resultsSection = el('div', { class: 'results-section' });
     const billingPeriodContainer = el('div', { class: 'billing-period-container' });
     resultsSection.appendChild(billingPeriodContainer);
+    billingPeriodContainer.appendChild(el('h3', {
+        'data-i18n': 'invoice.billing-period',
+        text: t('invoice.billing-period')
+    }));
     const billingPeriodSelect = el('select', { class: 'billing-period-select', id: 'billingPeriodSelect' }, [
         el('option', { value: 'months', text: t('invoice.number-of-months'), 'data-i18n': 'invoice.number-of-months' }),
         el('option', { value: 'dates', text: t('invoice.start-end-dates'), 'data-i18n': 'invoice.start-end-dates' })
@@ -21,7 +25,6 @@ export function createTab04() {
    
     
     // Grand total display
-    
     const grandTotalDiv = el('div', { class: 'result-item grand-total' });
     grandTotalDiv.appendChild(el('span', {
         'data-i18n': 'invoice.grand-total',
@@ -42,20 +45,23 @@ export function createTab04() {
     // Electricity section
     const elecSection = createMeterSection('electricity', 'kWh', 0.176, 0.07, 4.9);
     meterSectionsDiv.appendChild(elecSection);
-    elecSection.addEventListener('click', isEditableElement);
+    elecSection.addEventListener('click', replaceSpanWithInput);
     
     // Gas section
     const gasSection = createMeterSection('gas', 'm³', 0.231, 0.19, 0.75);
     meterSectionsDiv.appendChild(gasSection);
-    gasSection.addEventListener('click', isEditableElement);
+    gasSection.addEventListener('click', replaceSpanWithInput);
     
     // Tax section
-    const taxSection = el('div', { class: 'tax-section invoice-section' });
+    const taxSection = el('div', { class: 'invoice-section' });
+    meterSectionsDiv.appendChild(taxSection);
     taxSection.appendChild(el('h3', {
         'data-i18n': 'invoice.taxes',
         text: t('invoice.taxes')
     }));
-    taxSection.appendChild(el('div', { class: 'result-row'}, [
+    const taxItemsDiv = el('div', { class: 'tax-section' });
+    taxSection.appendChild(taxItemsDiv);
+    taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
         el('span', {
             'data-i18n': 'invoice.tax-info',
             text: t('invoice.tax-info')}),
@@ -63,7 +69,7 @@ export function createTab04() {
             text: '0,00 DT',
             class: 'tax-item-tva' }),
     ]));
-    taxSection.appendChild(el('div', { class: 'result-row'}, [
+    taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
         el('span', {
             'data-i18n': 'invoice.cl-rtt-fte',
             text: 'CL + RTT + FTE:'}),
@@ -71,7 +77,7 @@ export function createTab04() {
             text: '0,00 DT',
             class: 'tax-item-fte' }),
     ]));
-    taxSection.appendChild(el('div', { class: 'result-row'}, [
+    taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
         el('span', {
             'data-i18n': 'invoice.tax-totals',
             text: t('invoice.tax-totals')}),
@@ -79,65 +85,77 @@ export function createTab04() {
             text: '0,00 DT', 
             class: 'tax-item-total' }),
         ]));
-    content.appendChild(taxSection);
-
     
-    
-    // Export button
-    const exportButton = el('button', {
-        class: 'btn-export',
-        text: 'Export CSV'
-    });
-    exportButton.addEventListener('click', () => exportInvoiceData(tab04));
-    //content.appendChild(exportButton);
-    
+    // Append to main    
     tab04.appendChild(content);
     $('main').appendChild(tab04);
     
-    // Auto-calculate on input change
-    //billingPeriodInput.addEventListener('change', () => calculateInvoice(tab04));
+    // Input change listeners
     tab04.querySelectorAll('input[type="number"]').forEach(input => {
         input.addEventListener('change', () => calculateInvoice(tab04));
     });
 
     // Editable spans for price and TVA
-    function isEditableElement(e) {
+    function replaceSpanWithInput(e) {
         const elt = e.target;
         if (!elt.classList.contains('editable')) return;
         
-        const priceOrTVA = elt.className.match(/price-/) ? 'price' : 'tva';
-        const meterType = elt.className.match(/(?:price|tva)-(electricity|gas)/)?.[1];
+        const meterSection = e.currentTarget;
+        const meterType = meterSection.getAttribute('data-meter-type');
+        const priceOrTVA = elt.classList.contains('price-electricity') || elt.classList.contains('price-gas') ? 'price' : 'tva';
         //console.log({priceOrTVA, meterType});
 
-        const currentValue = elt.textContent.replace(',', '.').replace(priceOrTVA === 'price' ? ' DT' : ' %', '').trim();
+        const currentValue = meterSection.getAttribute(`data-${priceOrTVA}`);
         const input = el('input', {
             type: 'number',
-            value: currentValue,
-            step: `${priceOrTVA === 'price' ? '0.001' : '1'}`,
+            step: `${priceOrTVA === 'price' ? '0.001' : '0.01'}`,
+            class: `${priceOrTVA}-${meterType}` // no editable class here otherwise infinite loop
         });
         elt.replaceWith(input);
+        input.value = currentValue;
         input.focus();
-        input.addEventListener('blur', () => {
-            let newValue = parseFloat(input.value).toFixed( priceOrTVA === 'price' ? 3 : 0 );
-            if (isNaN(newValue)) {
-                newValue = currentValue;
+        
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                input.blur();
             }
-            const newSpan = el('span', { class: `editable ${priceOrTVA}-${meterType}`, text: `${newValue} ${priceOrTVA === 'price' ? 'DT' : '%'}` });
-            input.replaceWith(newSpan);
+        });
+
+        input.addEventListener('change', () => {
+            meterSection.setAttribute(`data-${priceOrTVA}`, parseFloat(input.value));
+            //currentValue = parseFloat(input.value);
             calculateInvoice(tab04);
+        });
+        
+        input.addEventListener('blur', () => {
+            let newValue = parseFloat(input.value);
+            //console.log('current value', currentValue, 'new value', newValue);
+            if (isNaN(newValue)) {
+                //console.log('Invalid number input');
+                newValue = parseFloat(currentValue);
+            }
+            const newSpan = el('span', { class: `${priceOrTVA}-${meterType} editable`, text: `${priceOrTVA === 'price' ? newValue + ' DT' : (newValue * 100).toFixed(2) + ' %'}` });
+            input.replaceWith(newSpan);
+            meterSection.setAttribute(`data-${priceOrTVA}`, newValue);
+            //calculateInvoice(tab04);
         });
     }
 
     // Billing period input
     const createBillingPeriodInput = () => {
+        const billingPeriod = localStorage.getItem('invoiceBillingPeriod') || '2';
         const input =  el('input', {
         type: 'number',
         id: 'billingPeriod',
-        value: '1',
+        value: billingPeriod,
+        step: '1',
         min: '1',
         class: 'billing-period-input'
         });
-        input.addEventListener('change', () => calculateInvoice(tab04));
+        input.addEventListener('change', () => {
+            localStorage.setItem('invoiceBillingPeriod', input.value);
+            calculateInvoice(tab04);
+        });
         return input;
     };
     const createBillingPeriodDatesGroup = () => {
@@ -188,7 +206,13 @@ export function createTab04() {
 }
 
 function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFixed) {
-    const section = el('div', { class: `invoice-section meter-${meterType}` });
+    const section = el('div', { 
+        class: `invoice-section meter-${meterType}`,
+        'data-meter-type': meterType, 
+        'data-price': defaultPrice, 
+        'data-tva': defaultTVA, 
+        'data-fixed': defaultFixed 
+    });
     
     const title = el('h3', {
         'data-i18n': `invoice.${meterType}`,
@@ -225,6 +249,8 @@ function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFi
     priceGroup.appendChild(el('label', { 'data-i18n': 'invoice.unit-price', text: t('invoice.unit-price') }));
     const priceInput = el('span', {class: `price-${meterType} editable`, text: `${defaultPrice} DT` });
     priceGroup.appendChild(priceInput);
+    const editableLabel = el('span', { text: 'Editable', class: 'editable-label' });
+    priceGroup.appendChild(editableLabel);
     section.appendChild(priceGroup);
     
     // Total HT display
@@ -251,8 +277,10 @@ function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFi
     // TVA percent input
     const tvaGroup = el('div', { class: 'input-group inline' });
     tvaGroup.appendChild(el('label', { 'data-i18n': 'invoice.tva-percent', text: t('invoice.tva-percent') }));
-    const tvaInput = el('span', { class: `tva-${meterType} editable`, text: `${(defaultTVA * 100).toFixed(0)} %` });
+    const tvaInput = el('span', { class: `tva-${meterType} editable`, text: `${(defaultTVA * 100).toFixed(2)} %` });
     tvaGroup.appendChild(tvaInput);
+    const tvaEditableLabel = el('span', { text: 'Editable', class: 'editable-label' });
+    tvaGroup.appendChild(tvaEditableLabel);
     section.appendChild(tvaGroup);
     
     // TVA amount display
@@ -281,6 +309,7 @@ export function calculateInvoice(tab04Container) {
         const startDate = new Date(startDateInput.value);
         const endDate = new Date(endDateInput.value);
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
+            //
             console.log('Invalid dates for billing period - 2');
             return;
         }
@@ -290,7 +319,7 @@ export function calculateInvoice(tab04Container) {
     } else {
         billingPeriodValue = parseFloat(billingPeriod.value) || 1;
     }
-    console.log({billingPeriodValue});
+    //console.log({billingPeriodValue});
     
     // Electricity calculations
     const elecSection = tab04Container.querySelector('.meter-electricity');
@@ -300,27 +329,27 @@ export function calculateInvoice(tab04Container) {
     const elecOld = parseFloat(elecSection.querySelector('.meter-old').value) || 0;
     const elecNew = parseFloat(elecSection.querySelector('.meter-new').value) || 0;
     const elecConsumption = elecNew - elecOld;
-    const elecPrice = parseFloat(elecSection.querySelector('.price-electricity').textContent.replace(' DT', '')) || 0;
-    const elecTVAPercent = parseFloat(elecSection.querySelector('.tva-electricity').textContent.replace(' %', '')) || 0;
+    const elecPrice = parseFloat(elecSection.getAttribute('data-price')) || 0.176;
+    const elecTVAPercent = parseFloat(elecSection.getAttribute('data-tva')) || 0.07;
     const elecFixedCosts = parseFloat(elecSection.getAttribute('data-fixed')) || 4.9;
     
     // Gas calculations
     const gasOld = parseFloat(gasSection.querySelector('.meter-old').value) || 0;
     const gasNew = parseFloat(gasSection.querySelector('.meter-new').value) || 0;
     const gasConsumption = gasNew - gasOld;
-    const gasPrice = parseFloat(gasSection.querySelector('.price-gas').textContent.replace(' DT', '')) || 0;
-    const gasTVAPercent = parseFloat(gasSection.querySelector('.tva-gas').textContent.replace(' %', '')) || 0;
+    const gasPrice = parseFloat(gasSection.getAttribute('data-price')) || 0.231;
+    const gasTVAPercent = parseFloat(gasSection.getAttribute('data-tva')) || 0.19;
     const gasFixedCosts = parseFloat(gasSection.getAttribute('data-fixed')) || 0.75;
     
     // Electricity calculations
     const elecTotalHT = (elecConsumption * elecPrice);
     const elecFixed = elecFixedCosts * billingPeriodValue;
-    const elecTVAAmount = elecTotalHT * (elecTVAPercent / 100) + (elecFixed * (gasTVAPercent / 100));
+    const elecTVAAmount = elecTotalHT * elecTVAPercent + (elecFixed * gasTVAPercent);
     
     // Gas calculations
     const gasTotalHT = (gasConsumption * gasPrice);
     const gasFixed = gasFixedCosts * billingPeriodValue;
-    const gasTVAAmount = (gasTotalHT + gasFixed) * (gasTVAPercent / 100);
+    const gasTVAAmount = (gasTotalHT + gasFixed) * gasTVAPercent;
     
     // Totals
     const totalHT = elecTotalHT + gasTotalHT;

@@ -9,7 +9,7 @@ export const translations = {
     "header.loan-overview": "LOAN SIMULATOR",
     "header.loan-status": "CALCULATE PAID CAPITAL & PAID INTERESTS DURING A PERIOD",
     "header.loan-table": "GENERATE AMORTIZATION TABLE",
-    "header.invoice-calculator": "INVOICE STEG",
+    "header.invoice-calculator": "STEG INVOICE CALCULATOR",
 
     // Tab01 - Input labels
     "label.loan-amount": "Loan amount",
@@ -104,7 +104,7 @@ export const translations = {
     "print.end-date": "End date:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Billing period (months):",
+    "invoice.billing-period": "Billing period:",
     "invoice.electricity": "Electricity - Meter (kWh)",
     "invoice.gas": "Gas - Meter (m³)",
     "invoice.old-reading": "Old reading:",
@@ -137,7 +137,7 @@ export const translations = {
     "header.loan-overview": "SIMULATEUR DE CRÉDIT",
     "header.loan-status": "CALCULER LE CAPITAL PAYÉ ET LES INTÉRÊTS PAYÉS PENDANT UNE PÉRIODE",
     "header.loan-table": "GÉNÉRER UN TABLEAU D'AMORTISSEMENT",
-    "header.invoice-calculator": "FACTURE STEG",
+    "header.invoice-calculator": "CALCULATEUR DE FACTURE STEG",
 
     // Tab01 - Input labels
     "label.loan-amount": "Montant du crédit",
@@ -232,7 +232,7 @@ export const translations = {
     "print.end-date": "Date de fin:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Periode de facturation (mois):",
+    "invoice.billing-period": "Periode de facturation:",
     "invoice.electricity": "Électricité - Compteur (kWh)",
     "invoice.gas": "Gaz - Compteur (m³)",
     "invoice.old-reading": "Ancien relevé:",
@@ -265,7 +265,7 @@ export const translations = {
     "header.loan-overview": "LENING SIMULATOR",
     "header.loan-status": "BEREKEN HET AFBETAALD KAPITAAL & DE BETAALDE RENTE TIJDENS EEN PERIODE",
     "header.loan-table": "GENEREER AFLOSSINGSTABEL",
-    "header.invoice-calculator": "FACTUUR STEG",
+    "header.invoice-calculator": "STEG FACTUUR CALCULATOR",
 
     // Tab01 - Input labels
     "label.loan-amount": "Te lenen bedrag",
@@ -360,7 +360,7 @@ export const translations = {
     "print.end-date": "Einddatum:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Factuurperiode (maanden):",
+    "invoice.billing-period": "Factuurperiode:",
     "invoice.electricity": "Elektriciteit - Meter (kWh)",
     "invoice.gas": "Gas - Meter (m³)",
     "invoice.old-reading": "Oude meterstand:",
