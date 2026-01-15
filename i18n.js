@@ -104,7 +104,7 @@ export const translations = {
     "print.end-date": "End date:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Billing period:",
+    "invoice.billing-period": "Number of months:",
     "invoice.electricity": "Electricity - Meter (kWh)",
     "invoice.gas": "Gas - Meter (m³)",
     "invoice.old-reading": "Old reading:",
@@ -122,8 +122,8 @@ export const translations = {
     "invoice.taxes": "Total taxes",
     "invoice.tax-totals": "TOTAL TAX AMOUNTS:",
     "invoice.tax-info": "VAT electricity + gas:",
-    "invoice.number-of-months": "Number of months",
-    "invoice.start-end-dates": "Start and end dates",
+    "invoice.duration-months": "Duration in months",
+    "invoice.period": "Facturing period",
     "invoice.totals": "Totals",
     "invoice.elect-ht": "Electricity excl. tax:",
     "invoice.gas-ht": "Gas excl. tax:",
@@ -235,7 +235,7 @@ export const translations = {
     "print.end-date": "Date de fin:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Periode de facturation:",
+    "invoice.billing-period": "Nombre de mois:",
     "invoice.electricity": "Électricité - Compteur (kWh)",
     "invoice.gas": "Gaz - Compteur (m³)",
     "invoice.old-reading": "Ancien relevé:",
@@ -253,8 +253,8 @@ export const translations = {
     "invoice.taxes": "Taxes totales",
     "invoice.tax-totals": "TOTAL TAXES:",
     "invoice.tax-info": "TVA électricité + gaz:",
-    "invoice.number-of-months": "Nombre de mois",
-    "invoice.start-end-dates": "Dates de début et de fin",
+    "invoice.duration-months": "Durée en mois",
+    "invoice.period": "Période de facturation",
     "invoice.totals": "Totaux",
     "invoice.elect-ht": "Électricité (H.T.):",
     "invoice.gas-ht": "Gaz (H.T.):",
@@ -366,7 +366,7 @@ export const translations = {
     "print.end-date": "Einddatum:",
 
     // Tab04 - Invoice Calculator
-    "invoice.billing-period": "Factuurperiode:",
+    "invoice.billing-period": "Aantal maanden:",
     "invoice.electricity": "Elektriciteit - Meter (kWh)",
     "invoice.gas": "Gas - Meter (m³)",
     "invoice.old-reading": "Oude meterstand:",
@@ -384,8 +384,8 @@ export const translations = {
     "invoice.taxes": "Totale taxen",
     "invoice.tax-totals": "TOTALE TAXEN:",
     "invoice.tax-info": "BTW elektriciteit + gas:",
-    "invoice.number-of-months": "Aantal maanden",
-    "invoice.start-end-dates": "Begin- en einddatums",
+    "invoice.duration-months": "Duurtijd in maanden",
+    "invoice.period": "Factureringsperiode",
     "invoice.totals": "Totalen",
     "invoice.elect-ht": "Elektriciteit excl. BTW:",
     "invoice.gas-ht": "Gas excl. BTW:",
