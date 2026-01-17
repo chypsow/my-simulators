@@ -87,7 +87,7 @@
     --h1-shadow-4: rgba(147, 133, 179, 0.2);
 }
 /* Thema white */
-:root.theme-light {
+:root.theme-light-orange {
     --bg-body: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
     --bg-dark: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
     --bg-mid: #f9f9f9;
@@ -159,7 +159,7 @@ h1{
     flex-direction: row;
     width: 100%;
     background: #343d5c;
-    z-index: 1000;
+    /*z-index: 1004;*/
 }
 .top-header a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -193,7 +193,7 @@ h1{
     font-weight: bold;
     outline: none;
     border: none;
-    z-index: 1001;
+    z-index: 1003;
     background-image: none;
     padding: 4px 12px 6px 12px;
     cursor: pointer;
@@ -299,6 +299,7 @@ h1{
     align-items: center;
     gap: 1.5rem;
     animation: slideInRight 0.4s ease-out;
+    z-index: 1003;
 }
 
 @keyframes slideInRight {

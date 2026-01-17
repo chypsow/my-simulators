@@ -142,6 +142,8 @@ function createTopHeader() {
             activePage = index;
             localStorage.setItem('activePage', activePage);
             renderTab(activePage + 1);
+            //closeTopHeader();
+            //closeThemePopup();
         });
         header.appendChild(tab);
     });
@@ -193,7 +195,10 @@ function createThemeMenuButton() {
             closeThemePopup();
         } else {
             openThemePopup();
-        }   
+            // Toggle topHeader on small screens
+            toggleTopHeader();
+        }
+        
     });
     return btn;
 }
@@ -201,15 +206,16 @@ function createThemeMenuButton() {
 function createThemeSelector() {
     const container = el('div', { class: 'theme-popup-overlay', id: 'theme-popup-overlay' });
     const popup = el('div', { class: 'theme-popup' });
-    
+    container.appendChild(popup);
+
     const themes = [
         { id: 'theme-dark-cyan', color: 'rgba(0, 217, 255, 1)' },
         { id: 'theme-dark-purple', color: 'rgba(114, 68, 199, 1)' },
         { id: 'theme-dark-rose', color: 'rgba(146, 32, 0, 1)' },
-        { id: 'theme-light', color: 'rgba(245, 127, 49, 1)' },
+        { id: 'theme-light-orange', color: 'rgba(245, 127, 49, 1)' },
     ];
     
-    const currentTheme = localStorage.getItem('theme') || 'theme-light';
+    const currentTheme = localStorage.getItem('theme') || 'theme-light-orange';
     
     themes.forEach(theme => {
         const btn = el('button', { 
@@ -242,14 +248,6 @@ function createThemeSelector() {
         popup.appendChild(btn);
     });
 
-    // button to close
-    /*const closeBtn = el('button', { class: 'theme-popup-close-btn', 'aria-label': 'Close theme menu' });
-    closeBtn.innerHTML = '&times;';
-    popup.appendChild(closeBtn);
-    closeBtn.addEventListener('click', closeThemePopup);*/
-    
-    container.appendChild(popup);
-    
     // Close popup when clicking overlay
     container.addEventListener('click', (e) => {
         if (e.target === container) {
@@ -290,8 +288,22 @@ function closeThemePopup() {
             btn.setAttribute('aria-expanded', 'false');
             btn.innerHTML = '☰';
             btn.classList.remove('open');
-            //btn.style.display = 'block';
+            closeTopHeader();
         }
+    }
+}
+
+function toggleTopHeader() {
+    const topHeader = document.getElementById('topHeader');
+    if (topHeader) {
+        topHeader.classList.toggle('active');
+    }
+}
+
+function closeTopHeader() {
+    const topHeader = document.getElementById('topHeader');
+    if (topHeader) {
+        topHeader.classList.remove('active');
     }
 }
 

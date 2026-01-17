@@ -138,7 +138,15 @@ export function createTab04() {
     
     // Input change listeners
     tab04.querySelectorAll('input[type="number"]').forEach(input => {
+        // on change recalculate invoice
         input.addEventListener('change', () => calculateInvoice(tab04));
+
+        // on enter key recalculate invoice
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                calculateInvoice(tab04);
+            }
+        });
     });
 
     // Editable spans for price and TVA
