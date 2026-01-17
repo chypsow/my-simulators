@@ -12,9 +12,9 @@
     border-radius:var(--radius-wrapper);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
-.invoice-content button {
+/*.invoice-content button {
     margin: 1rem 0;
-}
+}*/
 .results-section {
     display: flex;
     flex-direction: row;
@@ -36,9 +36,12 @@
 .billing-period-result .grand-total {
     display: flex;
     justify-content: flex-start;
-    gap: 2rem;
+    gap: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--output-fields-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     white-space: nowrap;
-    border-radius: 4px;
 }
 .billing-period-container {
     flex: 1 1 45%;
@@ -223,16 +226,12 @@
     color: var(--accent-plus);
 }
 .result-row span.total-ht-all,
-.result-row span.tax-item-total,
-.billing-period-result .grand-total span{
+.result-row span.tax-item-total{
     padding-left: 1rem;
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--output-fields-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.billing-period-result .grand-total span:first-child {
-    padding-left: 0;
 }
 
 
