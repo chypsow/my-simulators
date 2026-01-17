@@ -274,7 +274,6 @@ function openThemePopup() {
             btn.setAttribute('aria-expanded', 'true');
             btn.innerHTML = '✕';
             btn.classList.add('open');
-            //btn.style.display = 'none';
         }
     }
 }

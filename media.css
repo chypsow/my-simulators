@@ -19,7 +19,7 @@
     .theme-popup{ gap: .75rem; padding-top: .7rem;}
     .top-header {flex-direction: column; gap:0; display: none; position: fixed; top: 3.5rem; left: 0; right: 0; width: 100%; background: rgba(63, 63, 63, 0.74); z-index: 1003; }
     .top-header.active { display: flex; }
-    .top-header a { text-align: center; padding: .75rem; }
+    .top-header a { text-align: left; padding: .75rem; }
     .annual-report-table thead { top: 7.7rem; }
     .table-header th, .table-inhoud td{ font-size:.75rem; }
     .summary-output{ flex-direction:column; }
@@ -63,6 +63,9 @@
     .billing-period-months .billing-period-months-label span { font-size: 1rem; }
     .billing-period-result, .billing-period-container { flex: 1 1 100%; }
     .input-group.teller input { width:6.5rem; font-size:.9rem; }
+    .result-row { font-size:.9rem; }
+    .result-row span.total-ht-all, .result-row span.tax-item-total { font-size:1rem; }
+    .invoice-section h3 { font-size:1.1rem; }
 }
 /* Print styles */
 @media print{
