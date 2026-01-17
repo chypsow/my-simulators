@@ -194,6 +194,13 @@ export function createTab04() {
         class: 'billing-period-input no-print'
         });
         input.addEventListener('change', () => {
+            // check for valid value
+            if (parseFloat(input.value) < 1 || isNaN(parseFloat(input.value))) {
+                localStorage.removeItem('invoiceBillingPeriod');
+                resetResultsInvoice(tab04);
+                console.log('Invalid value for billing period - months input');
+                return;
+            }
             localStorage.setItem('invoiceBillingPeriod', input.value);
             calculateInvoice(tab04);
         });
@@ -221,7 +228,7 @@ export function createTab04() {
         const startDate = new Date(billingStartDateInput.value);
         const endDate = new Date(billingEndDateInput.value);
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
-            console.log('Invalid dates for billing period - 1');
+            console.log('Invalid dates for billing period - dates input');
             localStorage.setItem('invoiceBillingStartDate', billingStartDateInput.value);
             localStorage.setItem('invoiceBillingEndDate', billingEndDateInput.value);
             resetResultsInvoice(tab04);
@@ -232,14 +239,6 @@ export function createTab04() {
         calculateInvoice(tab04);
     }
 
-    const savedBillingPeriodType = localStorage.getItem('invoiceBillingPeriodType') || 'months';
-    billingPeriodSelect.value = savedBillingPeriodType;
-    if (savedBillingPeriodType === 'months') {
-        billingPeriodMonthOrDateInput.appendChild(createBillingPeriodInput());
-    } else {
-        billingPeriodMonthOrDateInput.appendChild(createBillingPeriodDatesGroup());
-    }
-    calculateInvoice(tab04);
     // select change for billing period type
     billingPeriodSelect.addEventListener('change', () => {
         const billingPeriodMonthOrDateInput = tab04.querySelector('.billing-period-group');
@@ -253,6 +252,16 @@ export function createTab04() {
         }
         calculateInvoice(tab04);
     });
+
+    // Initialize billing period input based on saved type
+    const savedBillingPeriodType = localStorage.getItem('invoiceBillingPeriodType') || 'months';
+    billingPeriodSelect.value = savedBillingPeriodType;
+    if (savedBillingPeriodType === 'months') {
+        billingPeriodMonthOrDateInput.appendChild(createBillingPeriodInput());
+    } else {
+        billingPeriodMonthOrDateInput.appendChild(createBillingPeriodDatesGroup());
+    }
+    calculateInvoice(tab04);
 }
 
 function resetResultsInvoice(tab04Container) {
@@ -270,6 +279,9 @@ function resetResultsInvoice(tab04Container) {
         span.textContent = '0,00 DT';
     });
     tab04Container.querySelector('#grandTotalValue').textContent = createFmtCurrency('TND').format(0);
+    tab04Container.querySelectorAll('.billing-period-info').forEach(span => {
+        span.classList.add('hidden');
+    });
 }
 
 function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFixed) {
@@ -357,11 +369,6 @@ function createMeterSection(meterType, unit, defaultPrice, defaultTVA, defaultFi
     tvaAmountDiv.appendChild(tvaAmountValue);
     section.appendChild(tvaAmountDiv);
     
-    // Store fixed costs value on section
-    section.setAttribute('data-fixed', defaultFixed);
-    
-    // add event listeners to section 
-
     return section;
 }
 
@@ -376,12 +383,11 @@ export function calculateInvoice(tab04Container) {
         const startDate = new Date(startDateInput.value);
         const endDate = new Date(endDateInput.value);
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
-            //
             tab04Container.querySelectorAll('.billing-period-info').forEach(span => {
                 span.classList.add('hidden');
             });
             resetResultsInvoice(tab04Container);
-            console.log('Invalid dates for billing period - 2');
+            console.log('Invalid dates for billing period - calculation');
             return;
         }
         const diffTime = Math.abs(endDate - startDate);
@@ -392,7 +398,7 @@ export function calculateInvoice(tab04Container) {
             span.classList.remove('hidden');
         });
     } else {
-        billingPeriodValue = parseFloat(billingPeriod.value) || 1;
+        billingPeriodValue = parseFloat(billingPeriod.value);
         tab04Container.querySelector('.number-of-months').textContent = billingPeriodValue;
         tab04Container.querySelectorAll('.billing-period-info').forEach(span => {
             span.classList.remove('hidden');
