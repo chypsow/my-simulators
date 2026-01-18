@@ -142,8 +142,6 @@ function createTopHeader() {
             activePage = index;
             localStorage.setItem('activePage', activePage);
             renderTab(activePage + 1);
-            //closeTopHeader();
-            //closeThemePopup();
         });
         header.appendChild(tab);
     });
@@ -196,7 +194,6 @@ function createThemeMenuButton() {
         } else {
             openThemePopup();
         }
-        
     });
     return btn;
 }
@@ -238,8 +235,6 @@ function createThemeSelector() {
                 b.classList.remove('active');
             });
             btn.classList.add('active');
-            
-            // Close popup after selection
             //closeThemePopup();
         });
         

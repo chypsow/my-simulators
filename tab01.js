@@ -30,7 +30,7 @@ export function createTab01() {
     }
 
     $all(".invoer").forEach(inp => inp.addEventListener("input", () => {
-        inp.value = inp.value.replace(/\./g, ',');
+        inp.value = inp.value.replace('.', ',');
         if (inp.id === "periode") {
             handlePeriodAndUnitChange();
         }
