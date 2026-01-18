@@ -67,7 +67,8 @@
 
 /* Print styles */
 @media print{
-    :root { --text-color: #000; --label-color: #000; --output-fields-color: #58578f; --accent: #58578f; --input-color: #000; }
+    :root { --text-color: #000; --label-color: #000; --output-fields-color: #7381af; --accent: #7381af; --input-color: #000; }
+    :root.theme-light-orange { --accent-plus: #7e92c0; }
     body{ background:transparent; color:#000; }
     header, footer{ display:none; }
     table{ table-layout:auto ; width:100%; }
