@@ -5,11 +5,11 @@ export const translations = {
     "tab.simulator": "LOAN SIMULATOR",
     "tab.calculator": "LOAN CALCULATOR",
     "tab.table": "LOAN TABLES",
-    "tab.invoice": "INVOICE CALCULATOR",
+    "tab.invoice": "INVOICE SIMULATOR",
     "header.loan-overview": "LOAN SIMULATOR",
-    "header.loan-status": "CALCULATE PAID CAPITAL & PAID INTERESTS DURING A PERIOD",
-    "header.loan-table": "GENERATE AMORTIZATION TABLE",
-    "header.invoice-calculator": "STEG INVOICE CALCULATOR",
+    "header.loan-status": "CALCULATION OF PAID CAPITAL & INTERESTS BETWEEN 2 DATES",
+    "header.loan-table": "AMORTIZATION TABLE",
+    "header.invoice-calculator": "STEG INVOICE SIMULATOR",
 
     // Tab01 - Input labels
     "label.loan-amount": "Loan amount",
@@ -136,11 +136,11 @@ export const translations = {
     "tab.simulator": "SIMULATEUR DE CRÉDIT",
     "tab.calculator": "CALCULATEUR DE CRÉDIT",
     "tab.table": "TABLEAUX DE CRÉDIT",
-    "tab.invoice": "CALCULATEUR DE FACTURE",
+    "tab.invoice": "SIMULATEUR DE FACTURE",
     "header.loan-overview": "SIMULATEUR DE CRÉDIT",
-    "header.loan-status": "CALCULER LE CAPITAL PAYÉ ET LES INTÉRÊTS PAYÉS PENDANT UNE PÉRIODE",
-    "header.loan-table": "GÉNÉRER UN TABLEAU D'AMORTISSEMENT",
-    "header.invoice-calculator": "CALCULATEUR DE FACTURE STEG",
+    "header.loan-status": "CALCUL DU CAPITAL PAYÉ & DES INTÉRÊTS PAYÉS ENTRE 2 DATES",
+    "header.loan-table": "TABLEAU D'AMORTISSEMENT",
+    "header.invoice-calculator": "SIMULATEUR DE FACTURE STEG",
 
     // Tab01 - Input labels
     "label.loan-amount": "Montant du crédit",
@@ -267,11 +267,11 @@ export const translations = {
     "tab.simulator": "LENING SIMULATOR",
     "tab.calculator": "LENING CALCULATOR",
     "tab.table": "LENING TABELLEN",
-    "tab.invoice": "FACTUUR CALCULATOR",
+    "tab.invoice": "FACTUUR SIMULATOR",
     "header.loan-overview": "LENING SIMULATOR",
-    "header.loan-status": "BEREKEN HET AFBETAALD KAPITAAL & DE BETAALDE RENTE TIJDENS EEN PERIODE",
-    "header.loan-table": "GENEREER AFLOSSINGSTABEL",
-    "header.invoice-calculator": "STEG FACTUUR CALCULATOR",
+    "header.loan-status": "BEREKENING VAN AFGELOST KAPITAAL & RENTE TUSSEN 2 DATUMS",
+    "header.loan-table": "AFLOSSINGSTABEL",
+    "header.invoice-calculator": "STEG FACTUUR SIMULATOR",
 
     // Tab01 - Input labels
     "label.loan-amount": "Te lenen bedrag",

@@ -52,7 +52,6 @@
     .overzicht,
     .output-fields,
     .output-sectie,
-    .invoice-section,
     .billing-period-container,
     .billing-period-result {padding:0px; background:transparent;}
     .uitleg-tekst{ font-size:.75rem; }
@@ -71,6 +70,7 @@
     .result-row { font-size:.9rem; }
     .result-row span.total-ht-all, .result-row span.tax-item-total { font-size:1rem; }
     .invoice-section h3 { font-size:1.1rem; }
+    .invoice-section { border-left: 4px solid var(--accent-plus); padding: .5rem; background: transparent; }
 }
 
 /* Print styles */
