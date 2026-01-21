@@ -105,8 +105,8 @@ export const translations = {
 
     // Tab04 - Invoice Calculator
     "invoice.billing-period": "Number of months:",
-    "invoice.electricity": "Electricity - Meter (kWh)",
-    "invoice.gas": "Gas - Meter (m³)",
+    "invoice.electricity": "Electricity - Counter (kWh)",
+    "invoice.gas": "Gas - Counter (m³)",
     "invoice.old-reading": "Old reading:",
     "invoice.new-reading": "New reading:",
     "invoice.consumption": "Consumption:",
@@ -243,7 +243,7 @@ export const translations = {
     "invoice.consumption": "Consommation:",
     "invoice.unit-price": "Prix unitaire:",
     "invoice.total-hf": "Total (hors frais fixes):",
-    "invoice.total-ht": "Total (hors taxes):",
+    "invoice.total-ht": "Total (H.T.):",
     "invoice.fixed-costs": "Frais fixes:",
     "invoice.tva-percent": "TVA:",
     "invoice.tva-amount": "Montant TVA:",
@@ -367,8 +367,8 @@ export const translations = {
 
     // Tab04 - Invoice Calculator
     "invoice.billing-period": "Aantal maanden:",
-    "invoice.electricity": "Elektriciteit - Meter (kWh)",
-    "invoice.gas": "Gas - Meter (m³)",
+    "invoice.electricity": "Elektriciteit - Teller (kWh)",
+    "invoice.gas": "Gas - Teller (m³)",
     "invoice.old-reading": "Oude meterstand:",
     "invoice.new-reading": "Nieuwe meterstand:",
     "invoice.consumption": "Verbruik:",
