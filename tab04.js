@@ -433,6 +433,10 @@ export function calculateInvoice(tab04Container) {
     const averageConsumption = elecConsumption / billingPeriodValue;
 
     const elecPriceCalc = () => {
+        if (power <= 2) {
+            if (averageConsumption <= 50) return 0.062;
+            if (averageConsumption <= 100) return 0.096;
+        }
         if (averageConsumption <= 200) return 0.176;
         if (averageConsumption <= 300) return 0.218;
         if (averageConsumption <= 500) return 0.341;
