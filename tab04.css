@@ -303,7 +303,7 @@
     border: none;
     font-size: 2rem;
     cursor: pointer;
-    color: var(--text-color);
+    color: var(--input-color);
     transition: color 0.2s ease;
 }
 
@@ -377,7 +377,7 @@
 
 .kva-table th {
     padding: 1rem;
-    text-align: left;
+    text-align: center;
     border: 1px solid var(--border);
 }
 

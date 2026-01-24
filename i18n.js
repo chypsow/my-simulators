@@ -130,7 +130,22 @@ export const translations = {
     "invoice.totals-ht": "TOTAL Elect + Gas (excl. tax):",
     "invoice.billing-period-months": " month(s)",
     "invoice.power": "POWER:",
-    "invoice.flow": "FLOW:"
+    "invoice.flow": "FLOW:",
+    
+    // kVA Information Modal
+    "kva.title": "What is kVA?",
+    "kva.description.line1": "kVA (kilovolt-amperes) is the unit of measurement of apparent power in an electrical circuit.",
+    "kva.description.line2": "Apparent power is the product of voltage (U) and current (I).",
+    "kva.description.note": "Note: Distinguish between apparent power (kVA) and active power (kW) which is the power actually consumed.",
+    "kva.description.formula": "The formula for calculating apparent power depends on the type of circuit:",
+    "kva.single-phase.title": "Single-phase (2 wires: 1L + 1N)",
+    "kva.single-phase.formula": "Power (VA) = U × I",
+    "kva.three-phase.title": "Three-phase (4 wires: 3L + 1N)",
+    "kva.three-phase.formula": "Power (VA) = √3 × U × I",
+    "kva.table.intensity": "Current (A)",
+    "kva.table.apparent": "Apparent Power (VA)",
+    "kva.table.kva": "Apparent Power (kVA)",
+    "kva.factor": "Factor:"
   },
 
   fr: {
@@ -263,7 +278,22 @@ export const translations = {
     "invoice.totals-ht": "TOTAL Élect + Gaz (H.T.):",
     "invoice.billing-period-months": " mois",
     "invoice.power": "PUISSANCE:",
-    "invoice.flow": "DÉBIT:"
+    "invoice.flow": "DÉBIT:",
+    
+    // kVA Information Modal
+    "kva.title": "Qu'est-ce que kVA ?",
+    "kva.description.line1": "kVA (kilovolt-ampères) est l'unité de mesure de la puissance apparente dans un circuit électrique.",
+    "kva.description.line2": "La puissance apparente est le produit de la tension (U) par l'intensité (I).",
+    "kva.description.note": "Remarque: Il faut différencier la puissance apparente (kVA) de la puissance active (kW) qui est la puissance réellement consommée.",
+    "kva.description.formula": "La formule pour calculer la puissance apparente dépend du type de circuit :",
+    "kva.single-phase.title": "Monophasé (2 fils : 1L + 1N)",
+    "kva.single-phase.formula": "Puissance (VA) = U × I",
+    "kva.three-phase.title": "Triphasé (4 fils: 3L + 1N)",
+    "kva.three-phase.formula": "Puissance (VA) = √3 × U × I",
+    "kva.table.intensity": "Intensité (A)",
+    "kva.table.apparent": "Puissance Apparente (VA)",
+    "kva.table.kva": "Puissance Apparente (kVA)",
+    "kva.factor": "Facteur:"
   },
 
   nl: {
@@ -396,6 +426,21 @@ export const translations = {
     "invoice.totals-ht": "TOTAAL Elect + Gas (excl. BTW):",
     "invoice.billing-period-months": " maand(en)",
     "invoice.power": "VERMOGEN:",
-    "invoice.flow": "DEBIET:"
+    "invoice.flow": "DEBIET:",
+    
+    // kVA Information Modal
+    "kva.title": "Wat is kVA?",
+    "kva.description.line1": "kVA (kilovolt-ampères) is de meeteenheid van schijnbaar vermogen in een elektrisch circuit.",
+    "kva.description.line2": "Schijnbaar vermogen is het product van spanning (U) en stroom (I).",
+    "kva.description.note": "Opmerking: Onderscheid schijnbaar vermogen (kVA) van actief vermogen (kW) dat is het werkelijk verbruikt vermogen.",
+    "kva.description.formula": "De formule voor het berekenen van schijnbaar vermogen is afhankelijk van het type circuit:",
+    "kva.single-phase.title": "Eenfasig (2 draden: 1L + 1N)",
+    "kva.single-phase.formula": "Vermogen (VA) = U × I",
+    "kva.three-phase.title": "Driefasig (4 draden: 3L + 1N)",
+    "kva.three-phase.formula": "Vermogen (VA) = √3 × U × I",
+    "kva.table.intensity": "Stroom (A)",
+    "kva.table.apparent": "Schijnbaar Vermogen (VA)",
+    "kva.table.kva": "Schijnbaar Vermogen (kVA)",
+    "kva.factor": "Factor:"
   }
 };

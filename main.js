@@ -280,7 +280,7 @@ function openThemePopup() {
             btn.innerHTML = '✕';
             btn.classList.add('open');
             toggleTopHeader();
-            toggleLangSelect(true);
+            //toggleLangSelect(true);
         }
     }
 }
@@ -295,7 +295,7 @@ function closeThemePopup() {
             btn.innerHTML = '☰';
             btn.classList.remove('open');
             closeTopHeader();
-            toggleLangSelect(false);
+            //toggleLangSelect(false);
         }
     }
 }

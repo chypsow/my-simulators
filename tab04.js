@@ -560,152 +560,112 @@ export function calculateInvoice(tab04Container) {
     window.URL.revokeObjectURL(url);
 }*/
 
+// Helper function to create kVA table sections
+function createKvaTableSection(title, formula, voltage, factor, data) {
+    const section = el('div', { class: 'kva-section' });
+    
+    const heading = el('h3', { text: t(title), 'data-i18n': title });
+    section.appendChild(heading);
+    
+    const formulaDiv = el('div', { class: 'kva-formula' });
+    formulaDiv.innerHTML = `
+        <p data-i18n=${formula}>${t(formula)}</p>
+        <p>Voltage (U): ${voltage}</p>
+        <p><span data-i18n="kva.factor">${t('kva.factor')}</span> ${factor}</p>
+    `;
+    section.appendChild(formulaDiv);
+    
+    const table = el('table', { class: 'kva-table' });
+    
+    // Table header
+    const thead = el('thead');
+    const headerRow = el('tr');
+    ['kva.table.intensity', 'kva.table.apparent', 'kva.table.kva'].forEach(headerText => {
+        headerRow.appendChild(el('th', { text: t(headerText), 'data-i18n': headerText }));
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    // Table body
+    const tbody = el('tbody');
+    data.forEach(row => {
+        const tr = el('tr');
+        row.forEach(cellText => {
+            tr.appendChild(el('td', { text: cellText }));
+        });
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    section.appendChild(table);
+    
+    return section;
+}
+
 function createKvaInfoModal() {
     const modal = el('div', { class: 'kva-info-modal hidden' });
     const overlay = el('div', { class: 'kva-modal-overlay' });
-    
     const modalContent = el('div', { class: 'kva-modal-content' });
     
     // Close button
     const closeBtn = el('button', { 
         class: 'kva-modal-close',
-        innerHTML: '&times;'
+        html: '&times;'
     });
     closeBtn.addEventListener('click', () => {
         modal.classList.add('hidden');
     });
+    modalContent.appendChild(closeBtn);
     
     // Header
-    const header = el('h2', { class: 'kva-modal-header', text: 'Qu\'est-ce que kVA ?' });
+    modalContent.appendChild(el('h2', { class: 'kva-modal-header', text: t('kva.title'), 'data-i18n': 'kva.title' }));
     
-    // Content sections
+    // Description
     const description = el('div', { class: 'kva-description' });
     description.innerHTML = `
-        <p><strong>kVA (kilovolt-ampères)</strong> est l'unité de mesure de la <strong>puissance apparente</strong> dans un circuit électrique.</p>
-        <p>La puissance apparente est le produit de la tension (U) par l'intensité (I).<br> <strong style="color:var(--accent-plus);">Remarque: Il faut différencier la puissance apparente (kVA) de la puissance active (kW) qui est la puissance réellement consommée.</strong></p>
-        <p>La formule pour calculer la puissance apparente dépend du type de circuit :</p>
+        <p><span data-i18n="kva.description.line1">${t('kva.description.line1')}</span></p>
+        <p><span data-i18n="kva.description.line2">${t('kva.description.line2')}</span><br> <strong style="color:var(--accent-plus);"> <span data-i18n="kva.description.note">${t('kva.description.note')}</span></s></strong></p>
+        <p data-i18n="kva.description.formula">${t('kva.description.formula')}</p>
     `;
-
-    
-    // 1-Phase section
-    const sectionOnePhase = el('div', { class: 'kva-section' });
-    sectionOnePhase.innerHTML = `
-        <h3>Monophasé (2 fils : 1L + 1N)</h3>
-        <div class="kva-formula">
-            <p><strong>Formule :</strong> Puissance (VA) = U × I</p>
-            <p>U = 220V</p>
-            <p>V = 220V</p>
-        </div>
-        <table class="kva-table">
-            <thead>
-                <tr>
-                    <th>Intensité (A)</th>
-                    <th>Puissance Apparente (VA)</th>
-                    <th>Puissance Apparente (kVA)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>5A</td>
-                    <td>1 100 VA</td>
-                    <td>1,1 kVA ≈ 1kVA</td>
-                </tr>
-                <tr>
-                    <td>10A</td>
-                    <td>2 200 VA</td>
-                    <td>2,2 kVA ≈ 2kVA</td>
-                </tr>
-                <tr>
-                    <td>15A</td>
-                    <td>3 300 VA</td>
-                    <td>3,3 kVA ≈ 3kVA</td>
-                </tr>
-                <tr>
-                    <td>20A</td>
-                    <td>4 400 VA</td>
-                    <td>4,4 kVA ≈ 4kVA</td>
-                </tr>
-                <tr>
-                    <td>30A</td>
-                    <td>6 600 VA</td>
-                    <td>6,6 kVA ≈ 7kVA</td>
-                </tr>
-                <tr>
-                    <td>45A</td>
-                    <td>9 900 VA</td>
-                    <td>9,9 kVA ≈ 10kVA</td>
-                </tr>
-                <tr>
-                    <td>63A</td>
-                    <td>13 860 VA</td>
-                    <td>13,86 kVA ≈ 14kVA</td>
-                </tr>
-            </tbody>
-        </table>
-    `;
-    
-    // 3-Phase section
-    const sectionThreePhase = el('div', { class: 'kva-section' });
-    sectionThreePhase.innerHTML = `
-        <h3>Triphasé (4 fils: 3L + 1N)</h3>
-        <div class="kva-formula">
-            <p><strong>Formule :</strong> Puissance (VA) = √3 × U × I</p>
-            <p>U = 380V</p>
-            <p>V = √3 x U ≈ 660V</p>
-        </div>
-        <table class="kva-table">
-            <thead>
-                <tr>
-                    <th>Intensité (A)</th>
-                    <th>Puissance Apparente (VA)</th>
-                    <th>Puissance Apparente (kVA)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>5A</td>
-                    <td>3 300 VA</td>
-                    <td>3,3 kVA ≈ 3kVA</td>
-                </tr>
-                <tr>
-                    <td>10A</td>
-                    <td>6 600 VA</td>
-                    <td>6,6 kVA ≈ 7kVA</td>
-                </tr>
-                <tr>
-                    <td>15A</td>
-                    <td>9 900 VA</td>
-                    <td>9,9 kVA ≈ 10kVA</td>
-                </tr>
-                <tr>
-                    <td>20A</td>
-                    <td>13 200 VA</td>
-                    <td>13,2 kVA ≈ 13kVA</td>
-                </tr>
-                <tr>
-                    <td>30A</td>
-                    <td>19 800 VA</td>
-                    <td>19,8 kVA ≈ 20kVA</td>
-                </tr>
-                <tr>
-                    <td>50A</td>
-                    <td>33 000 VA</td>
-                    <td>33 kVA</td>
-                </tr>
-                <tr>
-                    <td>63A</td>
-                    <td>41 580 VA</td>
-                    <td>41,58 kVA ≈ 42kVA</td>
-                </tr>
-            </tbody>
-        </table>
-    `;
-    
-    modalContent.appendChild(closeBtn);
-    modalContent.appendChild(header);
     modalContent.appendChild(description);
-    modalContent.appendChild(sectionOnePhase);
-    modalContent.appendChild(sectionThreePhase);
+    
+    // 1-Phase data
+    const onePhaseData = [
+        ['5A', '1 100 VA', '1,1 kVA ≈ 1kVA'],
+        ['10A', '2 200 VA', '2,2 kVA ≈ 2kVA'],
+        ['15A', '3 300 VA', '3,3 kVA ≈ 3kVA'],
+        ['20A', '4 400 VA', '4,4 kVA ≈ 4kVA'],
+        ['30A', '6 600 VA', '6,6 kVA ≈ 7kVA'],
+        ['45A', '9 900 VA', '9,9 kVA ≈ 10kVA'],
+        ['63A', '13 860 VA', '13,86 kVA ≈ 14kVA']
+    ];
+    
+    // 3-Phase data
+    const threePhaseData = [
+        ['5A', '3 300 VA', '3,3 kVA ≈ 3kVA'],
+        ['10A', '6 600 VA', '6,6 kVA ≈ 7kVA'],
+        ['15A', '9 900 VA', '9,9 kVA ≈ 10kVA'],
+        ['20A', '13 200 VA', '13,2 kVA ≈ 13kVA'],
+        ['30A', '19 800 VA', '19,8 kVA ≈ 20kVA'],
+        ['50A', '33 000 VA', '33 kVA'],
+        ['63A', '41 580 VA', '41,58 kVA ≈ 42kVA']
+    ];
+    
+    // Add sections
+    modalContent.appendChild(createKvaTableSection(
+        'kva.single-phase.title',
+        'kva.single-phase.formula',
+        '220V',
+        '220',
+        onePhaseData
+    ));
+    
+    modalContent.appendChild(createKvaTableSection(
+        'kva.three-phase.title',
+        'kva.three-phase.formula',
+        '380V',
+        '√3 x U ≈ 660',
+        threePhaseData
+    ));
     
     modal.appendChild(overlay);
     modal.appendChild(modalContent);
@@ -714,11 +674,6 @@ function createKvaInfoModal() {
     overlay.addEventListener('click', () => {
         modal.classList.add('hidden');
     });
-    
-    // Expose toggle function globally
-    /*window.toggleKvaInfo = () => {
-        modal.classList.toggle('hidden');
-    };*/
     
     return modal;
 }
