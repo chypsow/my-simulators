@@ -121,11 +121,27 @@ export function createTab04() {
     ]));
     taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
         el('span', {
-            'data-i18n': 'invoice.cl-rtt-fte',
-            text: 'CL + RTT + FTE:'}),
+            'data-i18n': 'invoice.cl',
+            text: t('invoice.cl')}),
+        el('span', {
+            text: '0,00 DT',
+            class: 'tax-item-cl' }),
+    ]));
+    taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
+        el('span', {
+            'data-i18n': 'invoice.fte',
+            text: t('invoice.fte')}),
         el('span', {
             text: '0,00 DT',
             class: 'tax-item-fte' }),
+    ]));
+    taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
+        el('span', {
+            'data-i18n': 'invoice.rtt',
+            text: t('invoice.rtt')}),
+        el('span', {
+            text: '0,00 DT',
+            class: 'tax-item-rtt' }),
     ]));
     taxItemsDiv.appendChild(el('div', { class: 'result-row'}, [
         el('span', {
@@ -295,7 +311,7 @@ function resetResultsInvoice(tab04Container) {
     tab04Container.querySelectorAll('.total-hf-electricity, .total-hf-gas, .fixed-electricity, .fixed-gas, .total-ht-electricity, .total-ht-gas, .tva-amount-electricity, .tva-amount-gas').forEach(span => {
         span.textContent = '0,00 DT';
     });
-    tab04Container.querySelectorAll('.tax-item-tva, .tax-item-fte, .tax-item-total').forEach(span => {
+    tab04Container.querySelectorAll('.tax-item-tva, .tax-item-cl, .tax-item-rtt, .tax-item-fte, .tax-item-total').forEach(span => {
         span.textContent = '0,00 DT';
     });
     tab04Container.querySelectorAll('.total-ht-electricity, .total-ht-gas, .total-ht-all').forEach(span => {
@@ -522,8 +538,28 @@ export function calculateInvoice(tab04Container) {
     // Totals
     const totalHT = elecTotalHT + gasTotalHT;
     const totalTVA = elecTVAAmount + gasTVAAmount;
-    const FTE = elecConsumption * 4 * 0.005;
-    const grandTotal = totalHT + elecFixed + gasFixed + totalTVA + FTE ;
+
+    // Contributions
+    const unitPrice = 0.005;
+    const contributionCL = elecConsumption * unitPrice;
+    const contributionFTEcalc = () => {
+        if (averageConsumption <= 100) return 0;
+        return elecConsumption * unitPrice;
+    }
+    const contributionFTE = contributionFTEcalc();
+    const contributionRTTcalc = () => {
+        const floor = 3.5;
+        const firstPrice = 0.010;
+        const secondPrice = 0.004;
+        if (averageConsumption <= 25) return 0;
+        if (averageConsumption <= 150) return averageConsumption * billingPeriodValue * firstPrice > floor ? floor * billingPeriodValue : elecConsumption * firstPrice;
+        return 150 * firstPrice + (averageConsumption - 150) * secondPrice > floor ? floor * billingPeriodValue : (150 * firstPrice + (averageConsumption - 150) * secondPrice) * billingPeriodValue;
+    }
+    const contibutionRTT = contributionRTTcalc();
+    const totalContributions = contributionCL + contibutionRTT + contributionFTE;
+
+    // Grand total
+    const grandTotal = totalHT + elecFixed + gasFixed + totalTVA + totalContributions;
 
     // Update electricity display
     elecSection.querySelector('.consumption-electricity').textContent = elecConsumption.toFixed(0) + ' kWh';
@@ -548,8 +584,10 @@ export function calculateInvoice(tab04Container) {
     totalSection.querySelector('.total-ht-gas').textContent = createFmtCurrency('TND').format(gasTotalHT + gasFixed);
     totalSection.querySelector('.total-ht-all').textContent = createFmtCurrency('TND').format(totalHT + elecFixed + gasFixed);
     taxSection.querySelector('.tax-item-tva').textContent = createFmtCurrency('TND').format(totalTVA);
-    taxSection.querySelector('.tax-item-fte').textContent = createFmtCurrency('TND').format(FTE);
-    taxSection.querySelector('.tax-item-total').textContent = createFmtCurrency('TND').format(totalTVA + FTE);
+    taxSection.querySelector('.tax-item-cl').textContent = createFmtCurrency('TND').format(contributionCL);
+    taxSection.querySelector('.tax-item-rtt').textContent = createFmtCurrency('TND').format(contibutionRTT);
+    taxSection.querySelector('.tax-item-fte').textContent = createFmtCurrency('TND').format(contributionFTE);
+    taxSection.querySelector('.tax-item-total').textContent = createFmtCurrency('TND').format(totalTVA + totalContributions);
 
     // Update grand total
     tab04Container.querySelector('#grandTotalValue').textContent = createFmtCurrency('TND').format(grandTotal);

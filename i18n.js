@@ -131,6 +131,9 @@ export const translations = {
     "invoice.billing-period-months": " month(s)",
     "invoice.power": "POWER:",
     "invoice.flow": "FLOW:",
+    "invoice.cl": "CL Contribution:",
+    "invoice.rtt": "RTT Contribution:",
+    "invoice.fte": "FTE Contribution:",
     
     // kVA Information Modal
     "kva.info-button-title": "Informations about kVA",
@@ -280,6 +283,9 @@ export const translations = {
     "invoice.billing-period-months": " mois",
     "invoice.power": "PUISSANCE:",
     "invoice.flow": "DÉBIT:",
+    "invoice.cl": "Contribution CL:",
+    "invoice.rtt": "Contribution RTT:",
+    "invoice.fte": "Contribution FTE:",
     
     // kVA Information Modal
     "kva.info-button-title": "Informations sur kVA",
@@ -429,6 +435,9 @@ export const translations = {
     "invoice.billing-period-months": " maand(en)",
     "invoice.power": "VERMOGEN:",
     "invoice.flow": "DEBIET:",
+    "invoice.cl": "Bijdrage CL:",
+    "invoice.rtt": "Bijdrage RTT:",
+    "invoice.fte": "Bijdrage FTE:",
     
     // kVA Information Modal
     "kva.info-button-title": "Informaties over kVA",
