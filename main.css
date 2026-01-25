@@ -257,23 +257,22 @@ h1{
     position: fixed;
     top: var(--top-fixed-position);
     left: 10px;
-    /*width: 2.5rem;
-    height: 2.5rem;*/
     border: 2px solid transparent;
     border-radius: 4px;
-    background: var(--accent);
-    color: var(--top-header-color);
+    background: var(--input-bg);
+    color: var(--input-color);
     font-size: 1.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 1003;
 }
 .theme-menu-btn.open {
-    background-color: transparent;
+    background: transparent;
     color: var(--input-color);
 }
 .theme-menu-btn:hover {
-    filter: brightness(0.8);
+    background: var(--accent);
+    color: var(--top-header-color);
 }
 /*.theme-menu-btn.open:hover {
     background-color: var(--input-bg);

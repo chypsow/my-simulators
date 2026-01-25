@@ -40,6 +40,7 @@
     .table-header th, .table-inhoud td{ font-size:.65rem; }
     .lang-select button { font-size: .9rem; }
     .theme-menu-btn { font-size: 1.25rem; }
+    .theme-popup { padding-top: .5rem;}
     .simulator, .calculator, .generator, .invoice-content{ width:100%; border-radius: 0; box-shadow: none; background: transparent;}
     .datums { flex-direction:column; align-items: flex-start; gap:.5rem; }
     .datums p span:first-child { font-size:.65rem; }
@@ -73,7 +74,7 @@
     .result-row span.total-ht-all, .result-row span.tax-item-total { font-size:1rem; }
     .invoice-section h3 { font-size:1.1rem; }
     .invoice-section { border: 1px solid var(--border); padding: .5rem; background: transparent; }
-    .kva-modal-content { width: 95%; padding: 1.5rem; max-height: 90vh; }
+    .kva-modal-content { width: 95%; padding: 1.5rem }
     .kva-modal-header { font-size: 1.5rem; }
     .kva-section h3 { font-size: 1.1rem; }
     .kva-table { font-size: 0.7rem; }
