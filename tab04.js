@@ -365,7 +365,7 @@ function createMeterSection(meterType, quantityType) {
             type: 'button',
             'data-i18n-title': 'kva.info-button-title'
         }, [
-            el('i', { class: 'fa-solid fa-circle-info' })
+            el('i', { class: 'fa fa-info' })
         ]);
         infoBtn.addEventListener('click', (e) => {
             e.stopPropagation();
