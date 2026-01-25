@@ -39,7 +39,7 @@
     .interval-input-container label{ font-size: .9rem;}
     .table-header th, .table-inhoud td{ font-size:.65rem; }
     .lang-select button { font-size: .9rem; }
-    .theme-menu-btn { font-size: .9rem; width: 2rem; height: 2rem; }
+    .theme-menu-btn { font-size: 1.25rem; }
     .simulator, .calculator, .generator, .invoice-content{ width:100%; border-radius: 0; box-shadow: none; background: transparent;}
     .datums { flex-direction:column; align-items: flex-start; gap:.5rem; }
     .datums p span:first-child { font-size:.65rem; }

@@ -274,7 +274,7 @@
 .kva-modal-content {
     position: relative;
     background: var(--bg-modal);
-    border-radius: var(--radius-wrapper);
+    /*border-radius: var(--radius-wrapper);*/
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     max-width: 900px;
     width: 90%;
@@ -312,7 +312,7 @@
 .kva-description {
     background: var(--card-bg);
     padding: 1.5rem;
-    border-radius: var(--radius);
+    /*border-radius: var(--radius);*/
     margin-bottom: 2rem;
     line-height: 1.6;
 }
