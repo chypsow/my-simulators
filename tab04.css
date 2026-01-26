@@ -289,7 +289,7 @@
 .kva-modal-content {
     position: relative;
     background: var(--bg-modal);
-    /*border-radius: var(--radius-wrapper);*/
+    border-radius: var(--radius-wrapper);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     max-width: 900px;
     width: 90%;
@@ -327,7 +327,7 @@
 .kva-description {
     background: var(--card-bg);
     padding: 1.5rem;
-    /*border-radius: var(--radius);*/
+    border-radius: var(--radius);
     margin-bottom: 2rem;
     line-height: 1.6;
 }
@@ -350,9 +350,9 @@
 }
 
 .kva-formula {
-    background: var(--circle-bg);
+    background: var(--card-bg);
     padding: 1rem;
-    /*border-radius: var(--radius);*/
+    border-radius: var(--radius);
     margin-bottom: 1rem;
     font-family: var(--font-mono);
     /*border: 1px solid var(--border);*/
@@ -369,7 +369,7 @@
     width: 100%;
     border-collapse: collapse;
     background: var(--card-bg);
-    /*border-radius: var(--radius);*/
+    border-radius: var(--radius);
     overflow: hidden;
     margin-top: 1rem;
     /*box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.25);*/
@@ -384,12 +384,17 @@
 .kva-table th {
     padding: 1rem;
     text-align: center;
-    border: 1px solid var(--border);
+}
+.kva-table th:first-child {
+    border-right: 1px solid var(--border);
+}
+.kva-table th:last-child {
+    border-left: 1px solid var(--border);
 }
 
 .kva-table td {
     padding: 0.8rem 1rem;
-    border: 1px solid var(--border);
+    /*border: 1px solid var(--border);*/
     text-align: center;
 }
 
@@ -398,18 +403,20 @@
 }
 
 .kva-table tbody tr:nth-child(even) {
-    background-color: rgba(76, 116, 175, 0.05);
+    background-color: rgba(76, 116, 175, 0.15);
 }
 
-.kva-table tbody tr:hover {
-    background-color: rgba(76, 116, 175, 0.1);
-}
+/*.kva-table tbody tr:hover {
+    background-color: rgba(76, 116, 175, 0.25);
+}*/
 
 .kva-table td:first-child {
     /*text-align: left;*/
     font-weight: 500;
+    border-right: 1px solid var(--border);
 }
 .kva-table td:last-child {
     font-weight: 600;
     color: var(--accent-plus);
+    border-left: 1px solid var(--border);
 }
