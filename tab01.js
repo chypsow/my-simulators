@@ -15,8 +15,9 @@ export function createTab01() {
     function handlePeriodAndUnitChange() {
         // Update end date preview
         const startDate = $("#startDatum").valueAsDate;
-        if (startDate) {
-            const periode = parseInt($("#periode").value || "0", 10);
+        const periode = parseInt($("#periode").value || "0", 10);
+        if (startDate && periode > 0) {
+            
             const periodeEenheid = $("#periodeEenheid").value;
             let adjustedPeriode = periode;
             if (periodeEenheid === "years") {
@@ -26,6 +27,8 @@ export function createTab01() {
             $("#eindDatum").textContent = fmtDate(endDate);
             $("#eindDatum").setAttribute("data-prev-date", fmtDate(endDate));
             $("#eindDatum-container").classList.remove("eind-datum-hidden");
+        } else {
+            $("#eindDatum-container").classList.add("eind-datum-hidden");
         }
     }
 
@@ -57,9 +60,10 @@ export function createTab01() {
     $("#startDatum").addEventListener("change", (event) => {
         const shouldRecalculate = event.detail?.shouldRecalculate ?? true;
         const startDate = $("#startDatum").valueAsDate;
-        if (startDate) {
+        let periode = parseInt($("#periode").value || "0", 10);
+        if (startDate && periode > 0) {
             $("#eindDatum-container").classList.remove("eind-datum-hidden");
-            let periode = parseInt($("#periode").value || "0", 10);
+            //let periode = parseInt($("#periode").value || "0", 10);
             const periodeEenheid = $("#periodeEenheid").value;
             if (periodeEenheid === "years") {
                 periode = periode * 12;
