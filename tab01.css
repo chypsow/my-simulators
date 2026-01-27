@@ -2,7 +2,7 @@
     max-width:var(--max-width);
     width:clamp(320px, 60%, 950px);
     margin:2rem auto 0;
-    padding:2rem;
+    padding:1.5rem;
     background: var(--glass);
     border-radius:var(--radius-wrapper);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -70,23 +70,22 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
 }
-.header-row-output h2, 
 .header-row-inputs h2,
 .output-fields h2,
 .overzicht-header h2{
     font-family: 'cambria', serif;
     font-size: 1.3rem;
 }
-.header-row-output span{
+/*.header-row-output span{
     font-family: var(--font-mono);
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--accent-plus);
-}
+}*/
 .header-row-inputs{
     display: flex;
     justify-content: space-between;
@@ -201,6 +200,7 @@ select option {
     margin-left: .5rem;
 }
 input[type="date"] {
+    margin: 0;
     width: fit-content;
     accent-color: var(--calendar-accent);
     color: var(--input-color);

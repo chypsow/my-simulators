@@ -51,6 +51,7 @@
     .output-fields p{ font-size:.75rem;}
     .output-groep p span:first-child{ font-size:1rem; }
     .info-box .output-overview, .info-box .output-tab01{ font-size: .85rem; }
+    .header-row-output {gap: .75rem;}
     .overzicht-header h2{ font-size:1.1rem; }
     .overzicht-inhoud p span:first-child { font-size:.75rem; }
     .overzicht-inhoud p span:nth-child(2) { font-size:.85rem; }

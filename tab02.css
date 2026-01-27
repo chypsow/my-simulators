@@ -2,7 +2,7 @@
     max-width:var(--max-width);
     width:clamp(320px, 60%, 950px);
     margin:3rem auto;
-    padding:2rem;
+    padding:1.5rem;
     background: var(--glass);
     border-radius:var(--radius-wrapper);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
