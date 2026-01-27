@@ -11,7 +11,6 @@ export function createTab01() {
     $('main').appendChild(tab01);
     
     // Event listeners/* Events */
-
     function handlePeriodAndUnitChange() {
         // Update end date preview
         const startDate = $("#startDatum").valueAsDate;

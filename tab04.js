@@ -605,7 +605,7 @@ function createKvaTableSection(title, formula, voltage, factor, data) {
     const formulaDiv = el('div', { class: 'kva-formula' });
     formulaDiv.innerHTML = `
         <p data-i18n=${formula}>${t(formula)}</p>
-        <p>Voltage (U) = ${voltage}</p>
+        <p>Voltage (U) ≈ ${voltage}</p>
         <p><span data-i18n="kva.factor">${t('kva.factor')}</span> ${factor}</p>
     `;
     section.appendChild(formulaDiv);
