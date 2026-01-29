@@ -124,7 +124,7 @@ function createOverviewContainer() {
 function createOutputFieldset() {
     return el("div", { class: "output-fields" }, [
         el("div", { class: "header-row-output", html: `
-            <button id="berekenBtn-1" class="accented-btn no-print" data-i18n="button.calculate-status">${t('button.calculate-status')}</button>
+            <button id="berekenBtn-1" class="accented-btn" data-i18n="button.calculate-status">${t('button.calculate-status')}</button>
             <input type="date" id="currentDate" class="invoer" }>
             ` 
         }),

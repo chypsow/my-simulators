@@ -109,12 +109,13 @@
     :root.theme-light-orange { --accent-plus: #7e92c0; }
     body{ background:transparent; color:#000; }
     header h1 { color:black; text-shadow: none; font-size: 1.1rem; letter-spacing: 1px;}
+    .header-row-output { margin-bottom: .5rem;}
     footer{ display:none; }
     table{ table-layout:auto ; width:100%; }
     .no-print{ display:none; }
     .on-print{ display:block; }
     .lang-select { display: none; }
-    .simulator, .calculator, .generator{ width:100%; margin:0; padding:0; box-shadow:none; }
+    .simulator, .calculator, .generator{ width:100%; margin:0; padding:0; box-shadow:none; background:transparent; }
     .top-row { flex-direction:row; }
     .overzicht, .output-sectie, .output-fields { padding: 0; background: transparent; box-shadow: none; }
     .table-header th{ font-size:0.7rem ; color:#000; border-color:#000; }
