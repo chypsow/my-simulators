@@ -244,22 +244,18 @@
 
 /* kVA Info Button */
 .kva-info-btn {
-    background: var(--top-header-color);
+    background: none;
     border: none;
-    /*font-size: 1.15rem;*/
     cursor: pointer;
     padding: 0;
     border-radius: 50%;
     transition: background-color 0.2s ease;
-    /*color: var(--accent-plus);*/
 }
 .fa-solid.fa-info-circle {
     font-size: 1.3rem;
-    /*background: var(--accent-plus);*/
-    color: var(--accent);
-    /*border-radius: 50%;
-    padding: .3rem .6rem;*/
+    color: var(--output-fields-color);
 }
+
 /* kVA Info Modal */
 .kva-info-modal {
     display: flex;
