@@ -150,7 +150,7 @@ export const translations = {
     "kva.table.intensity": "Current (A)",
     "kva.table.apparent": "Apparent Power (VA)",
     "kva.table.kva": "Apparent Power (kVA)",
-    "kva.factor": "=> Factor (V) ="
+    "kva.factor": "=> Factor ="
   },
 
   fr: {
@@ -303,7 +303,7 @@ export const translations = {
     "kva.table.intensity": "Intensité (A)",
     "kva.table.apparent": "Puissance Apparente (VA)",
     "kva.table.kva": "Puissance Apparente (kVA)",
-    "kva.factor": "=> Facteur (V) ="
+    "kva.factor": "=> Facteur ="
   },
 
   nl: {
@@ -456,6 +456,6 @@ export const translations = {
     "kva.table.intensity": "Stroom (A)",
     "kva.table.apparent": "Schijnbaar Vermogen (VA)",
     "kva.table.kva": "Schijnbaar Vermogen (kVA)",
-    "kva.factor": "=> Factor (V) ="
+    "kva.factor": "=> Factor ="
   }
 };
