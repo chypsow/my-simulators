@@ -734,22 +734,26 @@ function exportInvoiceData() {
     const flow = localStorage.getItem('invoiceGasFlow') || '5';
 
     // Electricity
-    const elecOld = tab04Container.querySelector('.meter-old').value;
+    const elecOld = tab04Container.querySelector('.meter-old').value || '0';
     const elecNew = tab04Container.querySelectorAll('.meter-new')[0].value;
     const elecConsumption = tab04Container.querySelector('.consumption-electricity').textContent;
     const elecPrice = tab04Container.querySelector('.price-electricity').textContent;
+    const elecTotalHF = tab04Container.querySelector('.total-hf-electricity').textContent
     const elecFixed = tab04Container.querySelector('.fixed-electricity').textContent;
-    const elecTotalHT = tab04Container.querySelector('.total-hf-electricity').textContent;
+    const elecTotalHT = tab04Container.querySelector('.total-ht-electricity').textContent;
     const elecTVAPer = tab04Container.querySelector('.tva-electricity').textContent;
+    const elecTVAAmount = tab04Container.querySelector('.tva-amount-electricity').textContent;
 
     // Gas
-    const gasOld = tab04Container.querySelectorAll('.meter-old')[1].value;
+    const gasOld = tab04Container.querySelectorAll('.meter-old')[1].value || '0';
     const gasNew = tab04Container.querySelectorAll('.meter-new')[1].value;
     const gasConsumption = tab04Container.querySelector('.consumption-gas').textContent;
     const gasPrice = tab04Container.querySelector('.price-gas').textContent;
+    const gasTotalHF = tab04Container.querySelector('.total-hf-gas').textContent;
     const gasFixed = tab04Container.querySelector('.fixed-gas').textContent;
-    const gasTotalHT = tab04Container.querySelector('.total-hf-gas').textContent;
+    const gasTotalHT = tab04Container.querySelector('.total-ht-gas').textContent;
     const gasTVAPer = tab04Container.querySelector('.tva-gas').textContent;
+    const gasTVAAmount = tab04Container.querySelector('.tva-amount-gas').textContent;
 
     // Taxes and contributions
     const taxCL = tab04Container.querySelector('.tax-item-cl').textContent;
@@ -762,7 +766,7 @@ function exportInvoiceData() {
     const grandTotalValue = tab04Container.querySelector('#grandTotalValue').textContent;
     
     const csvPayload = `
-        **Facture-STEG**\n\nDurée de facturation (mois);${billingPeriod}\nPeriode de facturation;${billingPeriodInfo}\n\n**Electricité**\nPuissance du compteur;${power} kVA\nAncien indexe;${elecOld}\nNouveau indexe;${elecNew}\nConsommation;${(elecConsumption)}\nPrix unitaire;${elecPrice}\nRedevances fixes;${elecFixed}\nTotal excl. TVA;${elecTotalHT}\nTVA %;${elecTVAPer}\n\n**Gaz**\nDébit du compteur;${flow} m³\nAncien indexe;${gasOld}\nNouveau indexe;${gasNew}\nConsommation;${(gasConsumption)}\nPrix unitaire;${gasPrice}\nRedevances fixes;${gasFixed}\nTotal excl. TVA;${gasTotalHT}\nTVA %;${gasTVAPer}\n\n**Taxes et contributions**\nContribution CL;${taxCL}\nContribution FTE;${taxFTE}\nContribution RTT;${taxRTT}\nTVA;${taxTVA}\nTotal des taxes et contributions;${taxTotal}\n\n**Montant total de la facture**;${grandTotalValue}
+        **Facture-STEG**\n\nDurée de facturation (mois);${billingPeriod}\nPeriode de facturation;${billingPeriodInfo}\n\n**Electricité**\nPuissance du compteur;${power} kVA\nAncien indexe;${elecOld}\nNouveau indexe;${elecNew}\nConsommation;${(elecConsumption)}\nPrix unitaire;${elecPrice}\nTotal hors red. fixes;${elecTotalHF}\nRed. fixes;${elecFixed}\nTotal HT;${elecTotalHT}\nTVA %;${elecTVAPer}\nMontant TVA;${elecTVAAmount}\n\n**Gaz**\nDébit du compteur;${flow} m³/h\nAncien indexe;${gasOld}\nNouveau indexe;${gasNew}\nConsommation;${(gasConsumption)}\nPrix unitaire;${gasPrice}\nTotal hors red. fixes;${gasTotalHF}\nRed. fixes;${gasFixed}\nTotal HT;${gasTotalHT}\nTVA %;${gasTVAPer}\nMontant TVA;${gasTVAAmount}\n\n**Taxes et contributions**\nContribution CL;${taxCL}\nContribution FTE;${taxFTE}\nContribution RTT;${taxRTT}\nTotal TVA;${taxTVA}\nTotal taxes et contributions;${taxTotal}\n\n**Total à payer**\nMontant total de la facture (TTC);${grandTotalValue}
     `;
     
     const BOM = '\uFEFF';
