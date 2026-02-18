@@ -110,19 +110,31 @@ export function createTab01() {
 
     const handleToggle = (event) => {
         const clickedButton = event.currentTarget;
+        const wasActive = clickedButton.classList.contains('active');
 
+        // First, deactivate all buttons and hide all content
         toggleConfigs.forEach(config => {
             const button = $(config.button);
             const content = $(config.content);
-
             if (button && content) {
-                const isActive = button === clickedButton;
-                button.classList.toggle('active', isActive);
-                content.classList.toggle('hidden', !isActive);
+                button.classList.remove('active');
+                content.classList.add('hidden');
             }
         });
-    };
 
+        // If the clicked button was not already active, activate it and show its content
+        if (!wasActive) {
+            const config = toggleConfigs.find(c => $(c.button) === clickedButton);
+            if (config) {
+                const content = $(config.content);
+                if (content) {
+                    clickedButton.classList.add('active');
+                    content.classList.remove('hidden');
+                }
+            }
+        }
+    };
+    
     toggleConfigs.forEach(config => {
         const btnElement = $(config.button);
         if (btnElement) {
