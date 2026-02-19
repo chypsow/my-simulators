@@ -224,7 +224,7 @@ export function createTab02() {
             if (parseFloat(input.value) < 1 || isNaN(parseFloat(input.value))) {
                 localStorage.removeItem('invoiceBillingPeriod');
                 resetResultsInvoice(tab02);
-                console.log('Invalid value for billing period - months input');
+                //console.log('Invalid value for billing period - months input');
                 return;
             }
             localStorage.setItem('invoiceBillingPeriod', input.value);
@@ -254,7 +254,7 @@ export function createTab02() {
         const startDate = new Date(billingStartDateInput.value);
         const endDate = new Date(billingEndDateInput.value);
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
-            console.log('Invalid dates for billing period - dates input');
+            //console.log('Invalid dates for billing period - dates input');
             localStorage.setItem('invoiceBillingStartDate', billingStartDateInput.value);
             localStorage.setItem('invoiceBillingEndDate', billingEndDateInput.value);
             resetResultsInvoice(tab02);
@@ -462,7 +462,7 @@ export function calculateInvoice(tab02Container) {
                 span.classList.add('hidden');
             });
             resetResultsInvoice(tab02Container);
-            console.log('Invalid dates for billing period - calculation');
+            //console.log('Invalid dates for billing period - calculation');
             return;
         }
         const diffTime = Math.abs(endDate - startDate);

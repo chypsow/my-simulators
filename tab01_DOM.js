@@ -72,11 +72,11 @@ function createInputFieldset() {
     const datums = () => {
         return el("div", { class: "datums" }, [
             el("label", {
-                html: `<span data-i18n="label.start-date">${t('label.start-date')}</span>&nbsp;<input type="date" id="startDatum" class="invoer">`
+                html: `<span data-i18n="label.start-date">${t('label.start-date')}</span>&nbsp;&nbsp;&nbsp;<input type="date" id="startDatum" class="invoer">`
             }),
             el("p", { 
                 id: "eindDatum-container", 
-                html: `<span data-i18n="label.end-date">${t('label.end-date')}</span>&nbsp;&nbsp;` 
+                html: `<span data-i18n="label.end-date">${t('label.end-date')}</span>&nbsp;&nbsp;&nbsp;` 
             }, [el("span", { id: "eindDatum", class: "eind-datum-hidden" })])
         ])
     };
@@ -134,7 +134,10 @@ export function createToggleButtons() {
 }
 
 export function createTitle(titel) {
-    return el("h2", { text: t(titel), "data-i18n": titel, class: "calculator-title" });
+    return el("div", { class: "calculator-title-container" }, [
+        el("h2", { text: t(titel), "data-i18n": titel, class: "calculator-title" }),
+        el("span", { text: ': ', class: "calculator-title-colon" })
+    ]);
 }
 
 // create calculator 1 DOM structures

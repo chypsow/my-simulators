@@ -124,3 +124,26 @@
     margin: 0;
 }
 
+.calculator-title {
+    font-size: 1.4rem;
+    color: #fff4ee;
+    /*background-color: #343d5c;*/
+    /*padding: 1rem 1rem;*/
+    margin: 0;
+    text-align: left;
+    padding-bottom: .2rem;
+    border-bottom: 3px solid #fff4ee;
+}
+.calculator-title-colon {
+    padding-bottom: .5rem;
+    font-size: 1.4rem;
+    color: #fff4ee;
+}
+
+.calculator-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    margin-bottom: 1.5rem;
+}
