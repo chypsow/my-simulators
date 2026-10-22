@@ -255,7 +255,10 @@ export function updateSummary(tab = '01') {
     endDate.setMonth(endDate.getMonth() + periode);
     let resterendeMaanden = 0;
     if (today < endDate) {
-        resterendeMaanden = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
+        resterendeMaanden = Math.min(
+            periode,
+            (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth())
+        );
     }
     const display = formatDuration(resterendeMaanden);
     $all('.remaining-duration').forEach(elm => elm.innerHTML = display);

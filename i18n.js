@@ -340,7 +340,7 @@ export const translations = {
     "label.interest-type.effective": "Effectief",
     "label.interest-type.nominal": "Nominaal",
     "label.period-unit.months": "maanden",
-    "label.period-unit.years": "jaren",
+    "label.period-unit.years": "jaar",
     "label.loan-period": "Looptijd:",
     "label.start-date": "Startdatum:",
     "label.end-date": "Einddatum:",
